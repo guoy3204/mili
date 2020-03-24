@@ -1,17 +1,17 @@
-$miliEditorSizeH1: 30px;
-$miliEditorSizeH2: 24px;
-$miliEditorSizeH3: 18px;
-$miliEditorSizeH4: 16px;
-$miliEditorSizeH5: 16px;
-$miliEditorSizeH6: 16px;
-$miliEditorDefaultSize: 15px;
-$miliEditorCodeSize: 13px;
+$cmsEditorSizeH1: 30px;
+$cmsEditorSizeH2: 24px;
+$cmsEditorSizeH3: 18px;
+$cmsEditorSizeH4: 16px;
+$cmsEditorSizeH5: 16px;
+$cmsEditorSizeH6: 16px;
+$cmsEditorDefaultSize: 15px;
+$cmsEditorCodeSize: 13px;
 
-// mili-editor 是在 文章详情页 存在的类
+// cms-editor 是在 文章详情页 存在的类
 // te-preview 是在 markdown编辑器(iframe里) 存在的类
-.mili-editor,
+.cms-editor,
 .te-preview {
-    font-size: $miliEditorDefaultSize;
+    font-size: $cmsEditorDefaultSize;
     font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
     color: #333;
     word-break: break-word;
@@ -20,12 +20,12 @@ $miliEditorCodeSize: 13px;
     overflow-x: hidden;
 }
 
-.mili-editor h1,
-.mili-editor h2,
-.mili-editor h3,
-.mili-editor h4,
-.mili-editor h5,
-.mili-editor h6,
+.cms-editor h1,
+.cms-editor h2,
+.cms-editor h3,
+.cms-editor h4,
+.cms-editor h5,
+.cms-editor h6,
 .te-preview h1,
 .te-preview h2,
 .te-preview h3,
@@ -39,60 +39,60 @@ $miliEditorCodeSize: 13px;
     padding-bottom: 5px;
 }
 
-.mili-editor h1,
+.cms-editor h1,
 .te-preview h1 {
-    font-size: $miliEditorSizeH1;
+    font-size: $cmsEditorSizeH1;
     font-weight: 700;
     margin-bottom: 5px;
     padding-bottom: 5px;
     border: none;
 }
 
-.mili-editor h2,
+.cms-editor h2,
 .te-preview h2 {
-    font-size: $miliEditorSizeH2;
+    font-size: $cmsEditorSizeH2;
     padding-bottom: 12px;
     border-bottom: 1px solid #ececec;
 }
 
-.mili-editor h3,
+.cms-editor h3,
 .te-preview h3 {
-    font-size: $miliEditorSizeH3;
+    font-size: $cmsEditorSizeH3;
 }
 
-.mili-editor h4,
+.cms-editor h4,
 .te-preview h4 {
-    font-size: $miliEditorSizeH4;
+    font-size: $cmsEditorSizeH4;
 }
 
-.mili-editor h5,
+.cms-editor h5,
 .te-preview h5 {
-    font-size: $miliEditorSizeH5;
+    font-size: $cmsEditorSizeH5;
 }
 
-.mili-editor h6,
+.cms-editor h6,
 .te-preview h6 {
-    font-size: $miliEditorSizeH6;
+    font-size: $cmsEditorSizeH6;
 }
 
 // heading 后紧跟着 heading
-.mili-editor .heading+.heading,
+.cms-editor .heading+.heading,
 .te-preview .heading+.heading {
     margin-top: 0;
 }
 
-.mili-editor em,
+.cms-editor em,
 .te-preview em {
     font-style: italic;
     font-weight: 400;
 }
 
-.mili-editor u,
+.cms-editor u,
 .te-preview u {
     text-decoration: underline;
 }
 
-.mili-editor hr,
+.cms-editor hr,
 .te-preview hr {
     margin-bottom: 20px;
     border: none;
@@ -100,58 +100,58 @@ $miliEditorCodeSize: 13px;
     background-color: #e3e3e3;
 }
 
-.mili-editor p,
+.cms-editor p,
 .te-preview p {
     line-height: 26px;
     margin-top: 22px;
     margin-bottom: 22px;
-    font-size: $miliEditorDefaultSize;
+    font-size: $cmsEditorDefaultSize;
 }
 
-.mili-editor figure,
+.cms-editor figure,
 .te-preview figure {
     margin: 22px auto;
     text-align: center;
 }
 
-.mili-editor img,
+.cms-editor img,
 .te-preview img {
     max-width: 100%;
 }
 
-.mili-editor a,
+.cms-editor a,
 .te-preview a {
     color: #08c;
     word-break: break-all;
 }
 
-.mili-editor a:hover,
+.cms-editor a:hover,
 .te-preview a:hover {
     color: #08c;
 }
 
-.mili-editor ul,
-.mili-editor ol,
+.cms-editor ul,
+.cms-editor ol,
 .te-preview ul,
 .te-preview ol {
     padding-left: 28px;
     margin: 0;
     margin-top: 10px;
     margin-bottom: 10px;
-    font-size: $miliEditorDefaultSize;
+    font-size: $cmsEditorDefaultSize;
 }
 
-.mili-editor ul li,
-.mili-editor ol li,
+.cms-editor ul li,
+.cms-editor ol li,
 .te-preview ul li,
 .te-preview ol li {
     margin-bottom: 0;
     list-style: inherit;
-    font-size: $miliEditorDefaultSize;
+    font-size: $cmsEditorDefaultSize;
     line-height: 26px;
 }
 
-.mili-editor pre,
+.cms-editor pre,
 .te-preview pre {
     background: #f6f6f6;
     word-spacing: normal;
@@ -168,7 +168,7 @@ $miliEditorCodeSize: 13px;
     box-sizing: border-box;
 }
 
-.mili-editor pre code,
+.cms-editor pre code,
 .te-preview pre code {
     -webkit-font-smoothing: auto;
     padding: 0;
@@ -177,13 +177,13 @@ $miliEditorCodeSize: 13px;
     border: none;
     font-weight: normal;
     font-family: Menlo, Monaco, Consolas, Courier New, monospace;
-    font-size: $miliEditorCodeSize;
+    font-size: $cmsEditorCodeSize;
     white-space: pre;
     color: #657b83;
     line-height: 1.42857;
 }
 
-.mili-editor code,
+.cms-editor code,
 .te-preview code {
     font-family: Menlo, Monaco, Consolas, Courier New, monospace;
     padding: 0 5px;
@@ -191,14 +191,14 @@ $miliEditorCodeSize: 13px;
     background-color: #fff5f5;
     color: #ff502c;
     border: none;
-    font-size: $miliEditorCodeSize;
+    font-size: $cmsEditorCodeSize;
     white-space: pre-wrap;
     border-radius: 4px;
     vertical-align: middle;
     margin: 0;
 }
 
-.mili-editor blockquote,
+.cms-editor blockquote,
 .te-preview blockquote {
     color: #666;
     padding: 10px 23px;
@@ -207,14 +207,14 @@ $miliEditorCodeSize: 13px;
     background-color: #f8f8f8;
 }
 
-.mili-editor blockquote.warning,
+.cms-editor blockquote.warning,
 .te-preview blockquote.warning {
     position: relative;
     border-left: 4px solid #f75151;
     margin-left: 8px;
 }
 
-.mili-editor blockquote.warning:before,
+.cms-editor blockquote.warning:before,
 .te-preview blockquote.warning:before {
     position: absolute;
     top: 14px;
@@ -230,14 +230,14 @@ $miliEditorCodeSize: 13px;
     justify-content: center;
 }
 
-.mili-editor code div.warning,
+.cms-editor code div.warning,
 .te-preview code div.warning {
     position: relative;
     font-size: 15px;
     color: #666;
 }
 
-.mili-editor code div.warning-circle,
+.cms-editor code div.warning-circle,
 .te-preview code div.warning-circle {
     position: absolute;
     left: -15px;
@@ -246,7 +246,7 @@ $miliEditorCodeSize: 13px;
     height: calc(100% + 30px);
 }
 
-.mili-editor code div.warning-circle:before,
+.cms-editor code div.warning-circle:before,
 .te-preview code div.warning-circle:before {
     position: absolute;
     margin-top: -10px;
@@ -263,17 +263,17 @@ $miliEditorCodeSize: 13px;
     justify-content: center;
 }
 
-.mili-editor blockquote>p,
+.cms-editor blockquote>p,
 .te-preview blockquote>p {
     margin: 10px 0;
 }
 
-.mili-editor table,
+.cms-editor table,
 .te-preview table {
     margin-bottom: 20px;
 }
 
-.mili-editor th,
+.cms-editor th,
 .te-preview th {
     border: 1px solid #eee;
     padding: 6px 13px !important;
@@ -281,12 +281,12 @@ $miliEditorCodeSize: 13px;
     font-weight: bold;
 }
 
-.mili-editor table tr:nth-child(2n),
+.cms-editor table tr:nth-child(2n),
 .te-preview table tr:nth-child(2n) {
     background-color: #f9f9f9;
 }
 
-.mili-editor td,
+.cms-editor td,
 .te-preview td {
     border: 1px solid #eee;
     padding: 6px 13px !important;
@@ -294,24 +294,24 @@ $miliEditorCodeSize: 13px;
 }
 
 /* ↓↓↓↓↓ 以下为文章来源(转载)的样式 ↓↓↓↓↓ */
-#mili-content-outter table {
+#cms-content-outter table {
     display: block;
     overflow-x: auto;
 }
 
-#mili-content-outter .image-container-fill {
+#cms-content-outter .image-container-fill {
     padding-bottom: 0 !important;
 }
 
-#mili-content-outter blockquote {
+#cms-content-outter blockquote {
     margin-top: 20px;
 }
 
-#mili-content-outter {
+#cms-content-outter {
     line-height: 26px;
 }
 
-#mili-content-outter-footer {
+#cms-content-outter-footer {
     font-size: 12px;
 }
 

@@ -18,8 +18,8 @@ export default class DBConfig extends BaseConfig {
 
     constructor(cfg) {
         super(cfg);
-        this.database = process.env.MILI_MYSQL_DB || this.database;
-        this.username = process.env.MILI_MYSQL_USER || this.username;
-        this.password = process.env.MILI_MYSQL_PASSWORD || this.password;
+        this.database = process.env.CMS_MYSQL_DB || this.database;
+        this.username = process.env.CMS_MYSQL_USER || this.username;
+        this.password = process.env.CMS_MYSQL_PASSWORD || this.password;
     }
 }

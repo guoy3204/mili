@@ -1,9 +1,10 @@
 /* 这个样式文件只在套markdown编辑器的iframe中用到 */
 body {
-    display: block!important;
+    display: block !important;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -24,11 +25,11 @@ html, body {
 
 /* ↓↓↓↓↓↓↓↓↓↓ 以下样式是设置编辑器的 toolbar ↓↓↓↓↓↓↓↓↓↓ */
 .te-toolbar-section {
-    height: 47px!important;
-    position: relative!important;
+    height: 47px !important;
+    position: relative !important;
 }
 
-.mili-md-editor-tooltip {
+.cms-md-editor-tooltip {
     position: absolute;
     left: 100px;
     z-index: 3;
@@ -36,7 +37,8 @@ html, body {
     pointer-events: none;
 }
 
-.mili-md-editor-tooltip-caret, .mili-md-editor-tooltip:after {
+.cms-md-editor-tooltip-caret,
+.cms-md-editor-tooltip:after {
     position: absolute;
     top: -11px;
     left: 50%;
@@ -47,7 +49,7 @@ html, body {
     border-bottom-color: #ebebeb;
 }
 
-.mili-md-editor-tooltip-caret:after {
+.cms-md-editor-tooltip-caret:after {
     content: " ";
     top: -5px;
     left: -6px;
@@ -58,7 +60,7 @@ html, body {
     height: 0;
 }
 
-.mili-md-editor-tooltip-text {
+.cms-md-editor-tooltip-text {
     display: block;
     padding: 6px 15px;
     border-radius: 3px;
@@ -70,24 +72,25 @@ html, body {
 }
 
 .tui-editor-defaultUI-toolbar {
-    height: 46px!important;
+    height: 46px !important;
 }
 
 .tui-editor-defaultUI-toolbar .tui-toolbar-divider {
-    display: none!important;
+    display: none !important;
 }
 
 .tui-editor-defaultUI-toolbar .tui-scrollsync {
-    display: none!important;
+    display: none !important;
 }
 
 .tui-custom-button {
-    width: 36px!important;
-    height: 36px!important;
-    border: none!important;
+    width: 36px !important;
+    height: 36px !important;
+    border: none !important;
 }
 
-.tui-custom-button:hover, .tui-custom-button:active {
+.tui-custom-button:hover,
+.tui-custom-button:active {
     background-color: #f6f7f8 !important;
 }
 
@@ -99,52 +102,52 @@ html, body {
     background-size: contain;
 }
 
-.mili-editor-icon-bold {
-    background-image: url(../../images/editor/rich.bold.png)!important;
+.cms-editor-icon-bold {
+    background-image: url(../../images/editor/rich.bold.png) !important;
 }
 
-.mili-editor-icon-italic {
-    background-image: url(../../images/editor/rich.italic.png)!important;
+.cms-editor-icon-italic {
+    background-image: url(../../images/editor/rich.italic.png) !important;
 }
 
-.mili-editor-icon-underline {
-    background-image: url(../../images/editor/rich.underline.png)!important;
+.cms-editor-icon-underline {
+    background-image: url(../../images/editor/rich.underline.png) !important;
 }
 
-.mili-editor-icon-h1 {
-    background-image: url(../../images/editor/rich.h1.png)!important;
+.cms-editor-icon-h1 {
+    background-image: url(../../images/editor/rich.h1.png) !important;
 }
 
-.mili-editor-icon-h2 {
-    background-image: url(../../images/editor/rich.h2.png)!important;
+.cms-editor-icon-h2 {
+    background-image: url(../../images/editor/rich.h2.png) !important;
 }
 
-.mili-editor-icon-blockquote {
-    background-image: url(../../images/editor/rich.blockquote.png)!important;
+.cms-editor-icon-blockquote {
+    background-image: url(../../images/editor/rich.blockquote.png) !important;
 }
 
-.mili-editor-icon-codeblock {
-    background-image: url(../../images/editor/rich.blockcode.png)!important;
+.cms-editor-icon-codeblock {
+    background-image: url(../../images/editor/rich.blockcode.png) !important;
 }
 
-.mili-editor-icon-code {
-    background-image: url(../../images/editor/rich.code.png)!important;
+.cms-editor-icon-code {
+    background-image: url(../../images/editor/rich.code.png) !important;
 }
 
-.mili-editor-icon-ol {
-    background-image: url(../../images/editor/rich.ol.png)!important;
+.cms-editor-icon-ol {
+    background-image: url(../../images/editor/rich.ol.png) !important;
 }
 
-.mili-editor-icon-ul {
-    background-image: url(../../images/editor/rich.ul.png)!important;
+.cms-editor-icon-ul {
+    background-image: url(../../images/editor/rich.ul.png) !important;
 }
 
-.mili-editor-icon-link {
-    background-image: url(../../images/editor/rich.link.png)!important;
+.cms-editor-icon-link {
+    background-image: url(../../images/editor/rich.link.png) !important;
 }
 
 #customToolbarImgUploaderBox {
-    background-image: url(../../images/editor/rich.image.png)!important;
+    background-image: url(../../images/editor/rich.image.png) !important;
     background-size: 24px 24px;
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -203,18 +206,19 @@ html, body {
 
 // 链接按钮
 .tui-toolbar-icons {
-    background-image: url(../../images/editor/rich.link.png)!important;
-    background-size: 24px 24px!important;
-    background-position: 0 0!important;
-    width: 36px!important;
-    height: 36px!important;
-    background-size: 24px 24px!important;
-    background-position: 50% 50%!important;
+    background-image: url(../../images/editor/rich.link.png) !important;
+    background-size: 24px 24px !important;
+    background-position: 0 0 !important;
+    width: 36px !important;
+    height: 36px !important;
+    background-size: 24px 24px !important;
+    background-position: 50% 50% !important;
     background-repeat: no-repeat;
     background-color: #fff;
 }
 
-.tui-editor-defaultUI-toolbar button, .tui-editor-defaultUI-toolbar button:hover {
+.tui-editor-defaultUI-toolbar button,
+.tui-editor-defaultUI-toolbar button:hover {
     border: none;
 }
 
@@ -224,21 +228,22 @@ html, body {
 }
 
 .tui-tooltip {
-    display: none!important;
+    display: none !important;
 }
+
 /* ↑↑↑↑↑↑↑↑↑↑ 上面的样式是设置编辑器的 toolbar ↑↑↑↑↑↑↑↑↑↑ */
 
 /* ↓↓↓↓↓↓↓↓↓↓ 以下是插入链接的弹框的样式 ↓↓↓↓↓↓↓↓↓↓ */
 .te-popup-add-link {
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1)!important;
-    border: 1px solid rgba(0, 0, 0, 0.1)!important;
-    border-radius: 3px!important;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 3px !important;
     top: 50px;
 }
 
 .te-popup-add-link .tui-popup-header {
     padding: 16px 30px;
-    border-bottom: 1px solid #f1f1f1!important;
+    border-bottom: 1px solid #f1f1f1 !important;
 }
 
 .te-popup-add-link .tui-popup-header .tui-popup-title {
@@ -287,17 +292,18 @@ html, body {
     height: 32px;
     line-height: 20px;
     box-sizing: border-box;
-    background-color: #fff!important;
+    background-color: #fff !important;
 }
 
 .te-popup-add-link .te-close-button {
     padding: 0;
     margin: 0;
-    background-color: transparent!important;
+    background-color: transparent !important;
     border: 0;
     font-size: 13px;
     color: #969696;
     height: 32px;
     line-height: 32px;
 }
+
 /* ↑↑↑↑↑↑↑↑↑↑ 上面是插入链接的弹框的样式  ↑↑↑↑↑↑↑↑↑↑↑↑↑ */

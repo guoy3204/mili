@@ -77,7 +77,7 @@ export class UserController {
             res.redirect('/');
             return;
         }
-        let ref = query.miliref || '/';
+        let ref = query.ref || '/';
         ref = encodeURIComponent(ref);
         return res.render('pages/signin', {
             loginReferer: ref,

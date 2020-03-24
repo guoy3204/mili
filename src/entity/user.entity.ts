@@ -35,10 +35,10 @@ export class Follower {
         public readonly username: string,
         public readonly avatarURL: string,
         public readonly date: Date,
-    ) {}
+    ) { }
 }
 
-@Entity({name: 'users'})
+@Entity({ name: 'users' })
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
@@ -69,7 +69,7 @@ export class User {
     pass: string;
 
     @Column('int', { name: 'value', default: 0 })
-    value: number; // 米粒值
+    value: number; // 阅读值
 
     @Column('int', { name: 'article_count', default: 0 })
     articleCount: number;
@@ -84,7 +84,7 @@ export class User {
     wordCount: number; // 写了多少字
 
     @Column('int', { name: 'boilingpoint_count', default: 0 })
-    boilingPointCount: number; // 沸点数量
+    boilingPointCount: number; // 圈子数量
 
     @Column('int', { name: 'follow_count', default: 0 })
     followCount: number; // 关注了多少人
@@ -105,7 +105,7 @@ export class User {
     uArticleLikeCount: number; // 用户对文章点了多少个赞
 
     @Column('int', { name: 'u_bp_like_count', default: 0 })
-    uBoilingPointLikeCount: number; // 用户对沸点点了多少个赞
+    uBoilingPointLikeCount: number; // 用户对圈子点了多少个赞
 
     @Column('int', { name: 'collection_count', default: 0 })
     collectionCount: number; // 收藏集的个数

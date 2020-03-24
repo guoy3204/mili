@@ -1,5 +1,5 @@
 /**
- * 沸点详情，此文件和 boilingpoint.js 一样，唯一的区别是增加了
+ * 圈子详情，此文件和 boilingpoint.js 一样，唯一的区别是增加了
  * boilingpointDetail.scss 这个样式文件
  */
 import 'iview/dist/styles/iview.css';

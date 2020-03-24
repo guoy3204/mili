@@ -42,15 +42,15 @@ function onShowToolTip(event) {
     if ($i && $i.length) {
       const className = trim($i[0].className);
       const arr = className.split('-');
-      $('.mili-md-editor-tooltip-text').text(tipMap[arr[arr.length - 1]]);
+      $('.cms-md-editor-tooltip-text').text(tipMap[arr[arr.length - 1]]);
     } else if ($target[0].dataset && $target[0].dataset.tip) {
       // 上传图片
-      $('.mili-md-editor-tooltip-text').text(tipMap[$target[0].dataset.tip]);
+      $('.cms-md-editor-tooltip-text').text(tipMap[$target[0].dataset.tip]);
     } else {
       // 链接
-      $('.mili-md-editor-tooltip-text').text(tipMap['link']);
+      $('.cms-md-editor-tooltip-text').text(tipMap['link']);
     }
-    const $tooltip = $('.mili-md-editor-tooltip');
+    const $tooltip = $('.cms-md-editor-tooltip');
     $tooltip.css({
       left: targetX - ($tooltip.width() - 36) / 2 + 'px',
       top: '46px',
@@ -62,7 +62,7 @@ function onShowToolTip(event) {
 
 function onHideToolTip(event) {
   clearTimeout(timeoutId);
-  const $tooltip = $('.mili-md-editor-tooltip');
+  const $tooltip = $('.cms-md-editor-tooltip');
   $tooltip.css({ opacity: 0.6, top: '36px' });
   $tooltip.hide();
 }
@@ -152,9 +152,9 @@ export default {
 
       $('.te-toolbar-section').append(
         [
-          '<div class="mili-md-editor-tooltip" style="top: 36px; opacity: 0.6; display: none;">',
-          '    <div class="mili-md-editor-tooltip-caret"></div>',
-          '    <div class="mili-md-editor-tooltip-text">粗体</div>',
+          '<div class="cms-md-editor-tooltip" style="top: 36px; opacity: 0.6; display: none;">',
+          '    <div class="cms-md-editor-tooltip-caret"></div>',
+          '    <div class="cms-md-editor-tooltip-text">粗体</div>',
           '</div>',
         ].join(''),
       );
@@ -174,7 +174,7 @@ export default {
         command: item.command,
         tooltip: '',
         $el: $(
-          `<button class="tui-custom-button"><i class="mili-editor-icon-${item.name}"></i></button>`,
+          `<button class="tui-custom-button"><i class="cms-editor-icon-${item.name}"></i></button>`,
         ),
       };
       if (item.event) {

@@ -7,6 +7,6 @@ export default class RedisConfig extends BaseConfig {
 
     constructor(cfg) {
         super(cfg);
-        this.keyPrefix = process.env.MILI_REDIS_PREFIX || this.keyPrefix;
+        this.keyPrefix = process.env.CMS_REDIS_PREFIX || this.keyPrefix;
     }
 }

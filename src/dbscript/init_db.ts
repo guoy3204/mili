@@ -30,7 +30,7 @@ async function insertAdmin(connection) {
             'liushen_shen@163.com', '', '150321606850159a1dc80fffd0ee9b9674c721aa77', 61, 4,
             '', 3, 2, 'http://www.cms.com/images/test/admin.png',
             '', 89, 0, '', 0, 0, 58984, 2, 10, 1, 0, 0, 10, 0, 0, 0,
-            '站长', '米粒', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)`;
+            '站长', '点点', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)`;
     return await connection.manager.query(sql);
 }
 

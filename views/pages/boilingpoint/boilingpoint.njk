@@ -39,7 +39,7 @@
             </div>
             <ul class="boiling-stat-list">
                 <a href="/uc/{{user.id}}/boilings" target="_blank" class="boiling-item">
-                    <div class="boiling-title">沸点</div>
+                    <div class="boiling-title">圈子</div>
                     <div class="boiling-count">{{user.boilingPointCount | defaultValue(0)}}</div>
                 </a>
                 <a href="/uc/{{user.id}}/follows" target="_blank" class="boiling-item">
@@ -54,7 +54,7 @@
         </div>
         {% endif %}
         <div class="related-pin-block pin-block">
-            <header>推荐沸点</header>
+            <header>推荐圈子</header>
             <ul class="pin-list">
                 {% for bp in globalRecommends %}
                 <li class="pin-item">
@@ -74,9 +74,9 @@
                 {% endfor %}
             </ul>
         </div>
-        <a class="guide-link shadow" href="" target="_blank">
+        <a class="guide-link shadow" target="_blank">
             <img src="{{imgPath}}/boilingpoint/guideicon.svg" class="icon">
-            <span class="title">如何玩转沸点</span>
+            <span class="title">如何玩转圈子</span>
         </a>
     </aside>
 </div>

@@ -40,15 +40,6 @@ export class HandBookController {
                     name: '前端',
                 },
                 {
-                    name: '后台',
-                },
-                {
-                    name: '移动开发',
-                },
-                {
-                    name: '区块链',
-                },
-                {
                     name: '通用',
                 },
             ],

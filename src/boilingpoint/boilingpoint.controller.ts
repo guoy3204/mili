@@ -33,7 +33,7 @@ export class BoilingPointController {
     ) { }
 
     /**
-     * 话题下的沸点页面
+     * 话题下的圈子页面
      */
     @Get('/boilings/topic/:topicID')
     async boilingView(@Param('topicID', MustIntPipe) topicID: number, @Res() res) {
@@ -58,7 +58,7 @@ export class BoilingPointController {
     }
 
     /**
-     * 沸点详情页面
+     * 圈子详情页面
      */
     @Get('/boiling/:id')
     async detailView(@CurUser() user, @Param('id', MustIntPipe) id: number, @Res() res) {
@@ -150,7 +150,7 @@ export class BoilingPointController {
     }
 
     /**
-     * 推荐沸点
+     * 推荐圈子
      */
     @Get(`${APIPrefix}/boilingpoints/recommend`)
     async recommend(@CurUser() user, @Query('page', ParsePagePipe) page: number) {
@@ -164,7 +164,7 @@ export class BoilingPointController {
     }
 
     /**
-     * 热门沸点
+     * 热门圈子
      */
     @Get(`${APIPrefix}/boilingpoints/hot`)
     async hot(@CurUser() user, @Query('page', ParsePagePipe) page: number) {
@@ -178,7 +178,7 @@ export class BoilingPointController {
     }
 
     /**
-     * 关注的用户的沸点
+     * 关注的用户的圈子
      */
     @Get(`${APIPrefix}/boilingpoints/followed`)
     @UseGuards(ActiveGuard)
@@ -193,7 +193,7 @@ export class BoilingPointController {
     }
 
     /**
-     * 话题下的沸点
+     * 话题下的圈子
      */
     @Get(`${APIPrefix}/boilingpoints/topic`)
     async listByTopic(@CurUser() user, @Query('topicID', MustIntPipe) topicID: number, @Query('page', ParsePagePipe) page: number) {
@@ -215,7 +215,7 @@ export class BoilingPointController {
     }
 
     /**
-     * 用户创建的沸点
+     * 用户创建的圈子
      */
     @Get(`${APIPrefix}/boilingpoints/user/:authorID`)
     async userBoilingPoints(@CurUser() user, @Param('authorID', MustIntPipe) authorID: number, @Query('page', ParsePagePipe) page: number) {
@@ -240,7 +240,7 @@ export class BoilingPointController {
     }
 
     /**
-     * 用户点过赞的沸点
+     * 用户点过赞的圈子
      */
     @Get(`${APIPrefix}/boilingpoints/user/:authorID/like`)
     async userLikeBoilingPoints(@CurUser() user, @Param('authorID', MustIntPipe) authorID: number, @Query('page', ParsePagePipe) page: number) {
@@ -266,7 +266,7 @@ export class BoilingPointController {
     }
 
     /**
-     * 创建沸点
+     * 创建圈子
      */
     @Post(`${APIPrefix}/boilingpoints`)
     @UseGuards(ActiveGuard)
@@ -295,7 +295,7 @@ export class BoilingPointController {
     }
 
     /**
-     * 给沸点点赞
+     * 给圈子点赞
      */
     @Post(`${APIPrefix}/boilingpoints/:id/like`)
     @UseGuards(ActiveGuard)
@@ -305,7 +305,7 @@ export class BoilingPointController {
     }
 
     /**
-     * 举报沸点
+     * 举报圈子
      */
     @Post(`${APIPrefix}/boilingpoints/:id/report`)
     @UseGuards(ActiveGuard)
@@ -329,7 +329,7 @@ export class BoilingPointController {
     }
 
     /**
-     * 取消沸点的点赞
+     * 取消圈子的点赞
      */
     @Delete(`${APIPrefix}/boilingpoints/:id/like`)
     @UseGuards(ActiveGuard)

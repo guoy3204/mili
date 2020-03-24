@@ -145,13 +145,13 @@ export class CrawlerService {
         let articleHTML = contentDOM.html();
 
         if (crawlerDto.from === CrawlerArticleFrom.ArticleFromNULL) {
-            return `<div id="mili-content-outter">${articleHTML}</div>`;
+            return `<div id="cms-content-outter">${articleHTML}</div>`;
         }
         let fromHTML = crawlerDto.fromTemplate;
         fromHTML = fromHTML.replace('{title}', title);
         fromHTML = fromHTML.replace('{articleURL}', pageURL);
         articleHTML = fromHTML + articleHTML;
-        articleHTML = `<div id="mili-content-outter">${articleHTML}</div>`;
+        articleHTML = `<div id="cms-content-outter">${articleHTML}</div>`;
 
         await this.crawlerArticleRepository.insert({
             title,

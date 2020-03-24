@@ -185,7 +185,7 @@ router.beforeEach((to, from, next) => {
         if (res.data.errorCode === ErrorCode.SUCCESS.CODE) {
             next();
         } else if (res.data.errorCode === ErrorCode.LoginTimeout.CODE) {
-            location.href = '/signin?miliref=' + encodeURIComponent(to.path);
+            location.href = '/signin?ref=' + encodeURIComponent(to.path);
         }
     });
 });

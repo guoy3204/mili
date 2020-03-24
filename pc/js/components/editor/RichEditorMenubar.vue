@@ -1,72 +1,72 @@
 <template>
   <EditorMenuBar :editor="editor">
-    <div class="mili-editor-menubar" slot-scope="{ commands, isActive, getMarkAttrs }">
-      <button :class="{ 'mili-editor-menubar-active': isActive.bold() }" @click="commands.bold">
-        <i class="mili-editor-icon-bold"></i>
+    <div class="cms-editor-menubar" slot-scope="{ commands, isActive, getMarkAttrs }">
+      <button :class="{ 'cms-editor-menubar-active': isActive.bold() }" @click="commands.bold">
+        <i class="cms-editor-icon-bold"></i>
       </button>
 
-      <button :class="{ 'mili-editor-menubar-active': isActive.italic() }" @click="commands.italic">
-        <i class="mili-editor-icon-italic"></i>
+      <button :class="{ 'cms-editor-menubar-active': isActive.italic() }" @click="commands.italic">
+        <i class="cms-editor-icon-italic"></i>
       </button>
 
       <button
-        :class="{ 'mili-editor-menubar-active': isActive.underline() }"
+        :class="{ 'cms-editor-menubar-active': isActive.underline() }"
         @click="commands.underline"
       >
-        <i class="mili-editor-icon-underline"></i>
+        <i class="cms-editor-icon-underline"></i>
       </button>
 
       <button
-        :class="{ 'mili-editor-menubar-active': isActive.heading({ level: 1 }) }"
+        :class="{ 'cms-editor-menubar-active': isActive.heading({ level: 1 }) }"
         @click="commands.heading({ level: 1 })"
       >
-        <i class="mili-editor-icon-h1"></i>
+        <i class="cms-editor-icon-h1"></i>
       </button>
 
       <button
-        :class="{ 'mili-editor-menubar-active': isActive.heading({ level: 2 }) }"
+        :class="{ 'cms-editor-menubar-active': isActive.heading({ level: 2 }) }"
         @click="commands.heading({ level: 2 })"
       >
-        <i class="mili-editor-icon-h2"></i>
+        <i class="cms-editor-icon-h2"></i>
       </button>
 
       <button
-        :class="{ 'mili-editor-menubar-active': isActive.blockquote() }"
+        :class="{ 'cms-editor-menubar-active': isActive.blockquote() }"
         @click="commands.blockquote"
       >
-        <i class="mili-editor-icon-blockquote"></i>
+        <i class="cms-editor-icon-blockquote"></i>
       </button>
 
       <button
-        :class="{ 'mili-editor-menubar-active': isActive.code_block() }"
+        :class="{ 'cms-editor-menubar-active': isActive.code_block() }"
         @click="onCodeBlockClick(isActive, commands)"
       >
-        <i class="mili-editor-icon-codeblock"></i>
+        <i class="cms-editor-icon-codeblock"></i>
       </button>
 
-      <button :class="{ 'mili-editor-menubar-active': isActive.code() }" @click="commands.code">
-        <i class="mili-editor-icon-code"></i>
+      <button :class="{ 'cms-editor-menubar-active': isActive.code() }" @click="commands.code">
+        <i class="cms-editor-icon-code"></i>
       </button>
 
       <button
-        :class="{ 'mili-editor-menubar-active': isActive.bullet_list() }"
+        :class="{ 'cms-editor-menubar-active': isActive.bullet_list() }"
         @click="commands.bullet_list"
       >
-        <i class="mili-editor-icon-ul"></i>
+        <i class="cms-editor-icon-ul"></i>
       </button>
 
       <button
-        :class="{ 'mili-editor-menubar-active': isActive.ordered_list() }"
+        :class="{ 'cms-editor-menubar-active': isActive.ordered_list() }"
         @click="commands.ordered_list"
       >
-        <i class="mili-editor-icon-ol"></i>
+        <i class="cms-editor-icon-ol"></i>
       </button>
 
       <button
-        :class="{ 'mili-editor-menubar-active': isActive.link() }"
+        :class="{ 'cms-editor-menubar-active': isActive.link() }"
         @click="showLinkModel(getMarkAttrs('link'))"
       >
-        <i class="mili-editor-icon-link"></i>
+        <i class="cms-editor-icon-link"></i>
       </button>
 
       <Uploader
@@ -76,7 +76,7 @@
         @error="onImgUploadFail"
       >
         <button>
-          <i class="mili-editor-icon-image"></i>
+          <i class="cms-editor-icon-image"></i>
         </button>
       </Uploader>
 

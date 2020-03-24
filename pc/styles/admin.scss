@@ -1,6 +1,7 @@
 @import './reset.scss';
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -45,14 +46,13 @@ body {
 }
 
 .logo-name {
-    width: 60px;
     display: inline-block;
     vertical-align: top;
     line-height: 56px;
     font-size: 24px;
     color: #ea6f5a;
     font-weight: 500;
-    font-family:-apple-system, "SF UI Text", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    font-family: -apple-system, "SF UI Text", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
 .collapsed-img {

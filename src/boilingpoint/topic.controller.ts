@@ -8,10 +8,10 @@ import { TopicService } from './topic.service';
 export class TopicController {
     constructor(
         private readonly topicService: TopicService,
-    ) {}
+    ) { }
 
     /**
-     * 所有的沸点话题
+     * 所有的圈子话题
      */
     @Get(`${APIPrefix}/boilingpoint/topics`)
     async list() {

@@ -10,10 +10,10 @@ import { MustIntPipe } from '../core/pipes/must-int.pipe';
 export class TopicAdminController {
     constructor(
         private readonly topicService: TopicService,
-    ) {}
+    ) { }
 
     /**
-     * 编辑沸点话题
+     * 编辑圈子话题
      */
     @Put(`${AdminAPIPrefix}/boilingpoint/topics/:id`)
     async update(@Body() editTopicDto: EditTopicDto, @Param('id', MustIntPipe) id: number) {
@@ -24,7 +24,7 @@ export class TopicAdminController {
     }
 
     /**
-     * 创建沸点话题
+     * 创建圈子话题
      */
     @Post(`${AdminAPIPrefix}/boilingpoint/topics`)
     async create(@Body() editTopicDto: EditTopicDto) {

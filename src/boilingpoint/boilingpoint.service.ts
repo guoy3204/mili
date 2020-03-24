@@ -27,7 +27,7 @@ export class BoilingPointService {
         private readonly topicService: TopicService,
         private readonly userService: UserService,
         private readonly ossService: OSSService,
-    ) {}
+    ) { }
 
     async isExist(id: number): Promise<boolean> {
         const boilingPoint = await this.boilingPointRepository.findOne({
@@ -69,7 +69,7 @@ export class BoilingPointService {
     }
 
     /**
-     * 话题下的沸点
+     * 话题下的圈子
      */
     async listInTopic(topicID: number, page: number, pageSize: number): Promise<ListResult<BoilingPoint>> {
         const [list, count] = await this.boilingPointRepository.findAndCount({
@@ -91,7 +91,7 @@ export class BoilingPointService {
     }
 
     /**
-     * 推荐的沸点
+     * 推荐的圈子
      */
     async recommend(page: number, pageSize: number): Promise<ListResult<BoilingPoint>> {
         const [list, count] = await this.boilingPointRepository.findAndCount({
@@ -148,7 +148,7 @@ export class BoilingPointService {
     }
 
     /**
-     * 关注的用户的沸点
+     * 关注的用户的圈子
      */
     async followed(followerID: number, page: number, pageSize: number): Promise<ListResult<BoilingPoint>> {
         const sql = 'SELECT user_id as userID FROM user_follower WHERE follower_id = ?';
@@ -181,7 +181,7 @@ export class BoilingPointService {
     }
 
     /**
-     * 热门沸点
+     * 热门圈子
      */
     async hot(page: number, pageSize: number): Promise<ListResult<BoilingPoint>> {
         const [list, count] = await this.boilingPointRepository.findAndCount({
@@ -200,7 +200,7 @@ export class BoilingPointService {
     }
 
     /**
-     * 创建沸点
+     * 创建圈子
      */
     async create(editBoilingPointDto: EditBoilingPointDto, userID: number) {
         const now = new Date();
@@ -225,7 +225,7 @@ export class BoilingPointService {
     }
 
     /**
-     * 用户创建的沸点
+     * 用户创建的圈子
      */
     async userBoilingPoints(userID: number, page: number, pageSize: number): Promise<ListResult<BoilingPoint>> {
         const [list, count] = await this.boilingPointRepository.findAndCount({
@@ -262,7 +262,7 @@ export class BoilingPointService {
     }
 
     /**
-     * 传入一组沸点id, 只返回用户点过赞的沸点id
+     * 传入一组圈子id, 只返回用户点过赞的圈子id
      */
     async filterUserLikeBoilingPointIDs(boilingpointIDs: number[], userID: number): Promise<number[]> {
         if (!userID) {
@@ -276,7 +276,7 @@ export class BoilingPointService {
     }
 
     /**
-     * 用户点过赞的沸点
+     * 用户点过赞的圈子
      */
     async userLikeBoilingPoints(userID: number, page: number, pageSize: number): Promise<ListResult<BoilingPoint>> {
         const sql = `SELECT boilingpoints.id as id, boilingpoints.created_at as createdAt, boilingpoints.html_content as htmlContent,
@@ -287,9 +287,9 @@ export class BoilingPointService {
             WHERE like_boilingpoints.user_id = ? AND like_boilingpoints.boilingpoint_id = boilingpoints.id
             ORDER BY like_boilingpoints.created_at DESC LIMIT ?, ?`;
         const sql2 = `SELECT COUNT(*) as count FROM like_boilingpoints WHERE like_boilingpoints.user_id = ?`;
-        const [ boilingPoints, countResult ] = await Promise.all([
-            this.boilingPointRepository.manager.query(sql, [ userID, (page - 1) * pageSize, pageSize ]),
-            this.boilingPointRepository.manager.query(sql2, [ userID ]),
+        const [boilingPoints, countResult] = await Promise.all([
+            this.boilingPointRepository.manager.query(sql, [userID, (page - 1) * pageSize, pageSize]),
+            this.boilingPointRepository.manager.query(sql2, [userID]),
         ]);
         return {
             count: parseInt(countResult[0].count, 10),
@@ -300,7 +300,7 @@ export class BoilingPointService {
     }
 
     /**
-     * 填充沸点相关数据，如沸点话题、沸点的九宫格图片、沸点的作者等
+     * 填充圈子相关数据，如圈子话题、圈子的九宫格图片、圈子的作者等
      */
     async fillBoilingPointsRelativeData(boilingPoints: BoilingPoint[], userID: number) {
         if (!boilingPoints || !boilingPoints.length) {
@@ -383,7 +383,7 @@ export class BoilingPointService {
     }
 
     /**
-     * 给沸点点赞
+     * 给圈子点赞
      */
     async like(boilingpointID: number, userID: number) {
         const boilingPoint = await this.boilingPointRepository.findOne({
@@ -399,23 +399,23 @@ export class BoilingPointService {
 
         const sql = `SELECT boilingpoint_id, user_id FROM like_boilingpoints
             WHERE boilingpoint_id = ? AND user_id = ?`;
-        const result = await this.boilingPointRepository.manager.query(sql, [ boilingpointID, userID ]);
+        const result = await this.boilingPointRepository.manager.query(sql, [boilingpointID, userID]);
         if (result && result.length) {
-            // 已经赞过此沸点
+            // 已经赞过此圈子
             return;
         }
         await this.boilingPointRepository.manager.connection.transaction(async manager => {
             const sql2 = `INSERT INTO like_boilingpoints (boilingpoint_id, user_id, publisher, created_at) VALUES(?, ?, ?, ?)`;
             const sql3 = `UPDATE boilingpoints SET liked_count = liked_count + 1 WHERE id = ?`;
             const sql4 = `UPDATE users SET liked_count = liked_count + 1 WHERE id = ?`;
-            await manager.query(sql2, [ boilingpointID, userID, boilingPoint.userID, new Date() ]);
-            await manager.query(sql3, [ boilingpointID ]);
-            await manager.query(sql4, [ boilingPoint.userID ]);
+            await manager.query(sql2, [boilingpointID, userID, boilingPoint.userID, new Date()]);
+            await manager.query(sql3, [boilingpointID]);
+            await manager.query(sql4, [boilingPoint.userID]);
         });
     }
 
     /**
-     * 取消沸点的点赞
+     * 取消圈子的点赞
      */
     async deleteLike(boilingpointID: number, userID: number) {
         const boilingPoint = await this.boilingPointRepository.findOne({
@@ -431,25 +431,25 @@ export class BoilingPointService {
 
         const sql = `SELECT boilingpoint_id, user_id FROM like_boilingpoints
             WHERE boilingpoint_id = ? AND user_id = ?`;
-        const result = await this.boilingPointRepository.manager.query(sql, [ boilingpointID, userID ]);
+        const result = await this.boilingPointRepository.manager.query(sql, [boilingpointID, userID]);
         if (!result || result.length <= 0) {
-            // 还没有赞过此沸点
+            // 还没有赞过此圈子
             return;
         }
         await this.boilingPointRepository.manager.connection.transaction(async manager => {
             const sql2 = `DELETE FROM like_boilingpoints WHERE boilingpoint_id = ? AND user_id = ?`;
             const sql3 = `UPDATE boilingpoints SET liked_count = liked_count - 1 WHERE id = ?`;
             const sql4 = `UPDATE users SET liked_count = liked_count - 1 WHERE id = ?`;
-            await manager.query(sql2, [ boilingpointID, userID ]);
-            await manager.query(sql3, [ boilingpointID ]);
-            await manager.query(sql4, [ boilingPoint.userID ]);
+            await manager.query(sql2, [boilingpointID, userID]);
+            await manager.query(sql3, [boilingpointID]);
+            await manager.query(sql4, [boilingPoint.userID]);
         });
 
         return result;
     }
 
     /**
-     * 举报沸点
+     * 举报圈子
      */
     async report(boilingPointID: number, reporter: number, reason: number) {
         this.boilingPointReportRepository.insert({

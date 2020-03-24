@@ -14,7 +14,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     constructor(
         private readonly configService: ConfigService,
         private readonly logger: MyLoggerService,
-    ) {}
+    ) { }
 
     catch(exception: any, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
@@ -49,7 +49,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
             errorCode = ErrorCode.ERROR.CODE;
             message = ErrorCode.ERROR.MESSAGE;
             this.logger.error({
-                message: [ exception.message, exception.stack ].join('\n'),
+                message: [exception.message, exception.stack].join('\n'),
             });
         }
         const apiPrefix = this.configService.server.apiPrefix;
@@ -57,7 +57,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
             const redirectURL = encodeURIComponent(request.originalUrl);
             let url = '/signin';
             if (redirectURL) {
-                url = `${url}?miliref=${redirectURL}`;
+                url = `${url}?ref=${redirectURL}`;
             }
             response.redirect(url);
             return;

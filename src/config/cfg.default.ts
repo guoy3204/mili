@@ -17,7 +17,7 @@ export default {
         charset: 'utf8mb4',
         username: 'root',
         password: 'root',
-        database: 'mili',
+        database: 'cms',
         synchronize: false,
         entities: [path.join(__dirname, '../entity/**/*.entity{.ts,.js}')],
         logging: 'all', // query, error, schema, warn, info, log, all
@@ -27,7 +27,7 @@ export default {
     redis: {
         host: '127.0.0.1',
         port: 6379,
-        keyPrefix: 'mili:',
+        keyPrefix: 'cms:',
         family: 4, // 4 (IPv4) or 6 (IPv6)
         password: '',
         db: 0,
@@ -42,12 +42,12 @@ export default {
         imgFormat: ['jpg', 'jpeg', 'png'],
         imgMaxSize: 3 * 1024 * 1024,
         imgMaxSizeError: '图片大小不能超过%sM',
-        userLevelChapterURL: 'https://www.cms.com/books/90/chapters/1515', // 用户等级在《如何使用米粒社区》中的章节url
+        userLevelChapterURL: 'https://www.cms.com/books/90/chapters/1515', // 用户等级在《如何使用点点》中的章节url
     },
     statsD: {
         host: 'localhost',
         port: 8125,
-        prefix: 'mili_',
+        prefix: 'cms_',
         protocol: 'udp',
     },
     server: {

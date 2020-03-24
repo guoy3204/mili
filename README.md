@@ -15,11 +15,11 @@
 请参考如下配置, 请修改日志目录
 
 ```
-upstream nodejsAPI {
+upstream cmsAPI {
     server 127.0.0.1:9905;
 }
 
-upstream nodejsStatic {
+upstream cmsStatic {
     server 127.0.0.1:9906;
 }
 
@@ -31,35 +31,35 @@ server {
     error_log /your/path/logs/cms.error.log;
 
     location /js  {
-        proxy_pass  http://nodejsStatic;
+        proxy_pass  http://cmsStatic;
         proxy_set_header   Host             $host;
         proxy_set_header   X-Real-IP        $remote_addr;
         proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
     }
 
     location /styles  {
-        proxy_pass  http://nodejsStatic;
+        proxy_pass  http://cmsStatic;
         proxy_set_header   Host             $host;
         proxy_set_header   X-Real-IP        $remote_addr;
         proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
     }
 
     location /images  {
-        proxy_pass  http://nodejsStatic;
+        proxy_pass  http://cmsStatic;
         proxy_set_header   Host             $host;
         proxy_set_header   X-Real-IP        $remote_addr;
         proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
     }
 
     location /fonts  {
-        proxy_pass  http://nodejsStatic;
+        proxy_pass  http://cmsStatic;
         proxy_set_header   Host             $host;
         proxy_set_header   X-Real-IP        $remote_addr;
         proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
     }
 
     location /sockjs-node {
-        proxy_pass http://nodejsStatic;
+        proxy_pass http://cmsStatic;
         proxy_read_timeout 3600s;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
@@ -67,14 +67,14 @@ server {
     }
 
     location /webpack-dev-server {
-        proxy_pass  http://nodejsStatic;
+        proxy_pass  http://cmsStatic;
         proxy_set_header   Host             $host;
         proxy_set_header   X-Real-IP        $remote_addr;
         proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
     }
 
     location /api/v1 {
-        proxy_pass  http://nodejsAPI;
+        proxy_pass  http://cmsAPI;
         proxy_set_header   Host             $host;
         proxy_set_header   X-Real-IP        $remote_addr;
         proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
@@ -82,7 +82,7 @@ server {
     }
     
     location / {
-        proxy_pass  http://nodejsAPI;
+        proxy_pass  http://cmsAPI;
         proxy_set_header   Host             $host;
         proxy_set_header   X-Real-IP        $remote_addr;
         proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;

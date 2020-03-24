@@ -1,5 +1,5 @@
 <template>
-  <div class="mili-editor" :class="{'mili-admin-editor': mode === 'admin'}">
+  <div class="cms-editor" :class="{'cms-admin-editor': mode === 'admin'}">
     <RichEditorMenubar :uploadPolicy="uploadPolicy" :editor="editor" :mode="mode" />
     <textarea
       v-if="mode !== 'admin'"
@@ -11,7 +11,7 @@
       type="text"
       placeholder="输入标题..."
     ></textarea>
-    <editor-content class="mili-editor-content" :editor="editor" :style="{height: contentHeight}" />
+    <editor-content class="cms-editor-content" :editor="editor" :style="{height: contentHeight}" />
   </div>
 </template>
 
