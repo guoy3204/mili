@@ -11,7 +11,7 @@ import OSSConfig from './type/OSSConfig';
 import AliyunSMSConfig from './type/AliyunSMSConfig';
 import GeetestCaptcha from './type/GeetestCaptcha';
 import WeiboConfig from './type/WeiboConfig';
-import GithubConfig from './type/GithubConfig';
+import OAuthConfig from './type/OAuthConfig';
 import RedisConfig from './type/RedisConfig';
 
 export class ConfigService {
@@ -28,7 +28,7 @@ export class ConfigService {
     readonly OSS: OSSConfig;
     readonly aliyunSMS: AliyunSMSConfig;
     readonly geetestCaptcha: GeetestCaptcha;
-    readonly github: GithubConfig;
+    readonly oauth: OAuthConfig;
     readonly weibo: WeiboConfig;
 
     constructor() {
@@ -54,7 +54,7 @@ export class ConfigService {
         this.OSS = new OSSConfig(defaultJSON.OSS);
         this.aliyunSMS = new AliyunSMSConfig(defaultJSON.aliyunSMS);
         this.geetestCaptcha = new GeetestCaptcha(defaultJSON.geetestCaptcha);
-        this.github = new GithubConfig(defaultJSON.github);
+        this.oauth = new OAuthConfig(defaultJSON.oauth);
         this.weibo = new WeiboConfig(defaultJSON.weibo);
     }
 }

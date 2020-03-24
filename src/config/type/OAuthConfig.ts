@@ -1,6 +1,6 @@
 import BaseConfig from './BaseConfig';
 
-export default class GithubConfig extends BaseConfig {
+export default class OAuthConfig extends BaseConfig {
     readonly clientID: string;
     readonly clientSecret: string;
     readonly accessTokenURL: string;

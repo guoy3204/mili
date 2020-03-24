@@ -31,10 +31,10 @@ export const userRun = async function (connection, config) {
         await connection.manager.query(`alter table users add column company varchar(100)`);
         await connection.manager.query(`alter table users add column personal_hp varchar(200)`);
 
-        await connection.manager.query(`alter table users add column github_id int`);
-        await connection.manager.query(`alter table users add column github_avatar_url varchar(500)`);
-        await connection.manager.query(`alter table users add column github_login varchar(100)`);
-        await connection.manager.query(`alter table users add column github_name varchar(100)`);
+        await connection.manager.query(`alter table users add column oauth_id int`);
+        await connection.manager.query(`alter table users add column oauth_avatar_url varchar(500)`);
+        await connection.manager.query(`alter table users add column oauth_login varchar(100)`);
+        await connection.manager.query(`alter table users add column oauth_name varchar(100)`);
         await connection.manager.query(`alter table users add column weibo_id int`);
         await connection.manager.query(`alter table users add column weibo_avatar_large varchar(500)`);
         await connection.manager.query(`alter table users add column weibo_screen_name varchar(100)`);

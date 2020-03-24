@@ -85,32 +85,32 @@ export class UserController {
         });
     }
 
-    @Get('/users/signin/github')
-    async githubSignin(@Res() res) {
-        const authorizeURL = this.configService.github.authorizeURL;
-        const clientID = this.configService.github.clientID;
+    @Get('/users/signin/oauth')
+    async oauthSignin(@Res() res) {
+        const authorizeURL = this.configService.oauth.authorizeURL;
+        const clientID = this.configService.oauth.clientID;
         res.status(302);
         res.redirect(util.format(authorizeURL, clientID));
     }
 
-    @Get('/users/signup/github')
-    async githubSignup(@Res() res) {
-        const authorizeURL = this.configService.github.authorizeURL;
-        const clientID = this.configService.github.clientID;
+    @Get('/users/signup/oauth')
+    async oauthSignup(@Res() res) {
+        const authorizeURL = this.configService.oauth.authorizeURL;
+        const clientID = this.configService.oauth.clientID;
         res.status(302);
         res.redirect(util.format(authorizeURL, clientID));
     }
 
-    @Get('/users/auth/github/callback')
-    async githubAuthCallback(@Query('code') code: string, @Res() res) {
+    @Get('/users/auth/oauth/callback')
+    async oauthAuthCallback(@Query('code') code: string, @Res() res) {
         if (!code) {
             throw new MyHttpException({
                 errorCode: ErrorCode.Forbidden.CODE,
             });
         }
-        const result = await axios.post(this.configService.github.accessTokenURL, {
-            client_id: this.configService.github.clientID,
-            client_secret: this.configService.github.clientSecret,
+        const result = await axios.post(this.configService.oauth.accessTokenURL, {
+            client_id: this.configService.oauth.clientID,
+            client_secret: this.configService.oauth.clientSecret,
             code,
         }, {
             headers: { Accept: 'application/json' },
@@ -122,7 +122,7 @@ export class UserController {
             return;
         }
 
-        const userInfoURL = util.format(this.configService.github.userInfoURL, result.data.access_token);
+        const userInfoURL = util.format(this.configService.oauth.userInfoURL, result.data.access_token);
         const userResult = await axios.get(userInfoURL, {
             headers: { Accept: 'application/json' },
         });
@@ -134,10 +134,10 @@ export class UserController {
         }
 
         const urlData = url.parse(userResult.data.avatar_url);
-        const pathname = path.join('/avatar/github/', urlData.pathname);
+        const pathname = path.join('/avatar/oauth/', urlData.pathname);
         const avatarURL: string = await this.ossService.uploadFromStreamURL(userResult.data.avatar_url, pathname);
 
-        const user: User = await this.userService.upsertGithubUser(userResult.data, avatarURL);
+        const user: User = await this.userService.upsertOAuthUser(userResult.data, avatarURL);
         await this.setToken(res, user);
         res.status(302);
         res.redirect('/');

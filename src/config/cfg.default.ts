@@ -7,12 +7,12 @@ const url = `http://${domain}:${port}`;
 const mDomain = 'm-dev.cms.com';
 const mURL = `http://${mDomain}`;
 
-const staticURL = `http://localhost:9906`;
+const staticURL = `http://local.cms.com:9906`;
 
 export default {
     db: {
         type: 'mysql',
-        host: 'localhost',
+        host: '192.168.0.133',
         port: 8889,
         charset: 'utf8mb4',
         username: 'root',
@@ -25,7 +25,7 @@ export default {
         maxQueryExecutionTime: 500, // 单位毫秒
     },
     redis: {
-        host: '127.0.0.1',
+        host: '192.168.0.133',
         port: 6379,
         keyPrefix: 'cms:',
         family: 4, // 4 (IPv4) or 6 (IPv6)
@@ -38,22 +38,22 @@ export default {
         jsPath: `${staticURL}/js`,
         imgPath: `${staticURL}/images`,
         fontPath: `${staticURL}/fonts`,
-        uploadImgURL: ``,
+        uploadImgURL: ``, //开发环境为空，为空默认使用本地文件服务器
         imgFormat: ['jpg', 'jpeg', 'png'],
         imgMaxSize: 3 * 1024 * 1024,
         imgMaxSizeError: '图片大小不能超过%sM',
         userLevelChapterURL: 'https://www.cms.com/books/90/chapters/1515', // 用户等级在《如何使用点点》中的章节url
     },
     statsD: {
-        host: 'localhost',
+        host: '192.168.0.133',
         port: 8125,
         prefix: 'cms_',
         protocol: 'udp',
     },
     server: {
-        siteName: '点点小说',
+        siteName: '点点',
         companyName: '点点科技有限公司',
-        icp: '京ICP备12345678号',
+        icp: 'ICP备12345678号',
         url,
         mURL,
         domain,
@@ -69,7 +69,7 @@ export default {
         rateLimitWindowMs: 15 * 60 * 1000, // 时间窗口，单位毫秒
         rateLimitMax: 1000, // limit each IP to rateLimitMax requests per windowMs
         swaggerPrefix: 'api/v1',
-        postEmail: 'xiaoce@abc.com',
+        postEmail: 'xiaoce@cms.com',
     },
     OSS: {
         type: "fs",
@@ -98,12 +98,12 @@ export default {
         geetest_id: '',
         geetest_key: '',
     },
-    github: {
+    oauth: {
         clientID: '',
         clientSecret: '',
-        authorizeURL: 'https://github.com/login/oauth/authorize?scope=user&client_id=%s',
-        accessTokenURL: 'https://github.com/login/oauth/access_token',
-        userInfoURL: 'https://api.github.com/user?access_token=%s',
+        authorizeURL: 'https://oauth.com/login/oauth/authorize?scope=user&client_id=%s',
+        accessTokenURL: 'https://oauth.com/login/oauth/access_token',
+        userInfoURL: 'https://api.oauth.com/user?access_token=%s',
     },
     weibo: {
         appKey: '',

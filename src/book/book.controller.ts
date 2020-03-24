@@ -29,7 +29,7 @@ export class BookController {
     constructor(
         private readonly bookService: BookService,
         private readonly configService: ConfigService,
-    ) {}
+    ) { }
 
     /**
      * 全部图书或分类下的图书(页面)
@@ -128,7 +128,7 @@ export class BookController {
      */
     @Get(`${APIPrefix}/books/chapters/:chapterID`)
     async chapter(@Param('chapterID', MustIntPipe) chapterID: number) {
-        const chapter  = await this.bookService.chapterDetail(chapterID);
+        const chapter = await this.bookService.chapterDetail(chapterID);
         if (!chapter || chapter.book.status !== BookStatus.BookPublished) {
             throw new MyHttpException({
                 errorCode: ErrorCode.NotFound.CODE,
@@ -144,7 +144,7 @@ export class BookController {
     @UseGuards(ActiveGuard, RolesGuard)
     @Roles(UserRole.Editor, UserRole.Admin, UserRole.SuperAdmin)
     async chapterEditorContent(@Param('chapterID', MustIntPipe) chapterID: number, @Query('contentType', MustIntPipe) contentType: number) {
-        const chapter  = await this.bookService.chapterEditorContent(chapterID, contentType);
+        const chapter = await this.bookService.chapterEditorContent(chapterID, contentType);
         if (!chapter) {
             throw new MyHttpException({
                 errorCode: ErrorCode.NotFound.CODE,
@@ -167,7 +167,7 @@ export class BookController {
      */
     @Get(`${APIPrefix}/books/:bookID/stars`)
     async stars(@Param('bookID', MustIntPipe) bookID: number, @Query('page', ParsePagePipe) page: number,
-                @Query('pageSize', ShouldIntPipe) pageSize: number) {
+        @Query('pageSize', ShouldIntPipe) pageSize: number) {
         pageSize = clampNumber(pageSize, 5, 20);
         const listResult = await this.bookService.starList(bookID, page, pageSize);
         return listResult;
@@ -198,7 +198,7 @@ export class BookController {
     }
 
     /**
-     * 图书列表, 后台管理的接口，查出所有的开源图书，包括已下架的
+     * 图书列表, 后台管理的接口，查出所有的图书，包括已下架的
      */
     @Get(`${AdminAPIPrefix}/books`)
     @UseGuards(ActiveGuard, RolesGuard)
@@ -246,7 +246,7 @@ export class BookController {
     }
 
     /**
-     * 创建开源图书
+     * 创建图书
      */
     @Post(`${AdminAPIPrefix}/books`)
     @UseGuards(ActiveGuard, RolesGuard)
@@ -295,7 +295,7 @@ export class BookController {
     }
 
     /**
-     * 更新开源图书
+     * 更新图书
      */
     @Put(`${AdminAPIPrefix}/books/:id`)
     @UseGuards(ActiveGuard, RolesGuard)
@@ -351,7 +351,7 @@ export class BookController {
     @UseGuards(ActiveGuard, RolesGuard)
     @Roles(UserRole.Editor, UserRole.Admin, UserRole.SuperAdmin)
     async deleteChapter(@Param('id', MustIntPipe) id: number, @Param('chapterID', MustIntPipe) chapterID: number) {
-        const [ book, chapter ] = await Promise.all([
+        const [book, chapter] = await Promise.all([
             this.bookService.basic(id),
             this.bookService.chapterBasic(chapterID),
         ]);

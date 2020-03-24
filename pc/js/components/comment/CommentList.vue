@@ -318,7 +318,7 @@ import { jobCompany, levelImgURL } from '~/js/common/filters.js';
 export default {
   name: 'CommentList',
   props: [
-    // article: 文章的评论;  bookchapter: 开源图书章节的评论; createboilingpoint: 创建圈子; boilingpoint: 圈子的评论
+    // article: 文章的评论;  bookchapter: 图书章节的评论; createboilingpoint: 创建圈子; boilingpoint: 圈子的评论
     'source',
     'rootCommentCount', // 一级评论数
     'collectionID', // 如果是图书章节的评论，那么collectionID就是 图书id

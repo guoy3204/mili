@@ -134,17 +134,17 @@ export class User {
     @Column('varchar', { name: 'personal_hp', length: 100 })
     personalHomePage: string; // 个人主页
 
-    @Column('int', { name: 'github_id', nullable: true, default: null })
-    githubID: number;
+    @Column('int', { name: 'oauth_id', nullable: true, default: null })
+    oauthID: number;
 
-    @Column('varchar', { name: 'github_avatar_url', length: 500, nullable: true, default: null })
-    githubAvatarURL: string;
+    @Column('varchar', { name: 'oauth_avatar_url', length: 500, nullable: true, default: null })
+    oauthAvatarURL: string;
 
-    @Column('varchar', { name: 'github_login', length: 100, nullable: true, default: null })
-    githubLogin: string;
+    @Column('varchar', { name: 'oauth_login', length: 100, nullable: true, default: null })
+    oauthLogin: string;
 
-    @Column('varchar', { name: 'github_name', length: 100, nullable: true, default: null })
-    githubName: string;
+    @Column('varchar', { name: 'oauth_name', length: 100, nullable: true, default: null })
+    oauthName: string;
 
     @Column('int', { name: 'weibo_id', nullable: true, default: null })
     weiboID: number;

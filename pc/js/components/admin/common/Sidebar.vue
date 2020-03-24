@@ -22,7 +22,7 @@
         <template v-if="!collapsed">
           <div class="admin-logo-box">
             <img src="../../../../images/logo.png" />
-            <span class="logo-name">点点小说</span>
+            <span class="logo-name">管理后台</span>
           </div>
         </template>
         <template v-else>
@@ -123,7 +123,7 @@ export default {
             name: `/book/category`,
             icon: 'ios-folder-open',
             meta: {
-              title: '开源图书分类',
+              title: '图书分类',
             },
           },
           {
@@ -137,7 +137,7 @@ export default {
             name: `/book/list`,
             icon: 'ios-book',
             meta: {
-              title: '开源图书',
+              title: '图书',
             },
           },
           {

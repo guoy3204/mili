@@ -103,7 +103,7 @@ export class UserService {
         if (typeof updateUserInfoDto.username !== 'undefined') {
             updateData.username = updateUserInfoDto.username;
             const theUser: User = await this.userRepository.findOne({
-                select: [ 'id'],
+                select: ['id'],
                 where: { username: updateData.username },
             });
             if (theUser) {
@@ -207,7 +207,7 @@ export class UserService {
 
         const accessKeyID = this.configService.aliyunSMS.accessKeyID;
         const accessKeySecret = this.configService.aliyunSMS.accessKeySecret;
-        const smsClient = new SMSClient({accessKeyId: accessKeyID, secretAccessKey: accessKeySecret});
+        const smsClient = new SMSClient({ accessKeyId: accessKeyID, secretAccessKey: accessKeySecret });
         const res = await smsClient.sendSMS({
             PhoneNumbers: phone,
             SignName: this.configService.aliyunSMS.signName,
@@ -287,13 +287,13 @@ export class UserService {
         return usernames[0];
     }
 
-    async upsertGithubUser(githubUser, avatarURL: string): Promise<User> {
-        const [ username, existUser ] = await Promise.all([
-            this.generateSNSUsername(githubUser.name),
+    async upsertOAuthUser(oauthUser, avatarURL: string): Promise<User> {
+        const [username, existUser] = await Promise.all([
+            this.generateSNSUsername(oauthUser.name),
             this.userRepository.findOne({
                 select: ['id'],
                 where: {
-                    githubID: githubUser.id,
+                    oauthID: oauthUser.id,
                 },
             }),
         ]);
@@ -309,10 +309,10 @@ export class UserService {
             newUser.commentCount = 0;
             newUser.sex = UserSex.Unknown;
             newUser.avatarURL = avatarURL;
-            newUser.githubID = githubUser.id;
-            newUser.githubLogin = githubUser.login;
-            newUser.githubName = githubUser.name;
-            newUser.githubAvatarURL = githubUser.avatar_url;
+            newUser.oauthID = oauthUser.id;
+            newUser.oauthLogin = oauthUser.login;
+            newUser.oauthName = oauthUser.name;
+            newUser.oauthAvatarURL = oauthUser.avatar_url;
             await this.userRepository.save(newUser);
             return newUser;
         }
@@ -322,22 +322,22 @@ export class UserService {
             .set({
                 updatedAt: now,
                 avatarURL,
-                githubLogin: githubUser.login,
-                githubName: githubUser.name,
-                githubAvatarURL: githubUser.avatar_url,
+                oauthLogin: oauthUser.login,
+                oauthName: oauthUser.name,
+                oauthAvatarURL: oauthUser.avatar_url,
             })
-            .where('githubID = :githubID', { githubID: githubUser.id })
+            .where('oauthID = :oauthID', { oauthID: oauthUser.id })
             .execute();
         existUser.updatedAt = now;
         existUser.avatarURL = avatarURL;
-        existUser.githubLogin = githubUser.login;
-        existUser.githubName = githubUser.name;
-        existUser.githubAvatarURL = githubUser.avatar_url;
+        existUser.oauthLogin = oauthUser.login;
+        existUser.oauthName = oauthUser.name;
+        existUser.oauthAvatarURL = oauthUser.avatar_url;
         return existUser;
     }
 
     async upsertWeiboUser(weiboUser): Promise<User> {
-        const [ username, existUser ] = await Promise.all([
+        const [username, existUser] = await Promise.all([
             this.generateSNSUsername(weiboUser.screen_name),
             this.userRepository.findOne({
                 select: ['id'],
@@ -387,7 +387,7 @@ export class UserService {
             jwt.sign({
                 id: user.id,
                 exp: Math.floor((Date.now() + tokenMaxAge) / 1000),
-            }, tokenSecret, { algorithm: 'HS256'}, (err, token) => {
+            }, tokenSecret, { algorithm: 'HS256' }, (err, token) => {
                 if (err) {
                     return reject(err);
                 }
@@ -432,7 +432,7 @@ export class UserService {
                 });
             } catch (err) {
                 this.logger.info({
-                    message: [ err.message, err.stack ].join('\n'),
+                    message: [err.message, err.stack].join('\n'),
                 });
                 throw err;
             }
@@ -605,17 +605,17 @@ export class UserService {
                 const sql = 'DELETE FROM user_follower WHERE follower_id = ? AND user_id = ?';
                 const cancelFollowCountSQL = 'UPDATE users SET follow_count = follow_count - 1 WHERE id = ?';
                 const cancelFollowerCountSQL = 'UPDATE users SET follower_count = follower_count - 1 WHERE id = ?';
-                await manager.query(sql, [ followerID, userID ]);
-                await manager.query(cancelFollowCountSQL, [ followerID ]);
-                await manager.query(cancelFollowerCountSQL, [ userID ]);
+                await manager.query(sql, [followerID, userID]);
+                await manager.query(cancelFollowCountSQL, [followerID]);
+                await manager.query(cancelFollowerCountSQL, [userID]);
                 return;
             }
             const sql2 = 'INSERT INTO user_follower (follower_id, user_id, created_at) VALUES (?, ?, ?)';
             const addFollowCountSQL = 'UPDATE users SET follow_count = follow_count + 1 WHERE id = ?';
             const addFollowerCountSQL = 'UPDATE users SET follower_count = follower_count + 1 WHERE id = ?';
-            await manager.query(sql2, [ followerID, userID, new Date() ]);
-            await manager.query(addFollowCountSQL, [ followerID ]);
-            await manager.query(addFollowerCountSQL, [ userID ]);
+            await manager.query(sql2, [followerID, userID, new Date()]);
+            await manager.query(addFollowCountSQL, [followerID]);
+            await manager.query(addFollowerCountSQL, [userID]);
         });
     }
 

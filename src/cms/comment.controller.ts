@@ -32,16 +32,16 @@ export class CommentController {
         private readonly articleService: ArticleService,
         private readonly bookService: BookService,
         private readonly boilingPointService: BoilingPointService,
-    ) {}
+    ) { }
 
     /**
-     * 开源图书 或 小册 下的评论，
+     * 图书 或 小册 下的评论，
      */
     @Get(`${APIPrefix}/comments/collection/:collectionName/:collectionID`)
     async collectionComments(@Param('collectionName') collectionName: string,
-                             @Param('collectionID', MustIntPipe) collectionID: number,
-                             @Query('page', ParsePagePipe) page: number,
-                             @Query('pageSize', ShouldIntPipe) pageSize: number) {
+        @Param('collectionID', MustIntPipe) collectionID: number,
+        @Query('page', ParsePagePipe) page: number,
+        @Query('pageSize', ShouldIntPipe) pageSize: number) {
         pageSize = pageSize || 20;
         pageSize = clampNumber(pageSize, 1, 20);
         let source = '';
@@ -66,8 +66,8 @@ export class CommentController {
      */
     @Get(`${APIPrefix}/comments/:source/:sourceID/:lastCommentID?`)
     async comments(@CurUser() user, @Param('source') source: string, @Param('sourceID', MustIntPipe) sourceID: number,
-                   @Param('lastCommentID', ShouldIntPipe) lastCommentID: number,
-                   @Query('limit', ShouldIntPipe) limit: number) {
+        @Param('lastCommentID', ShouldIntPipe) lastCommentID: number,
+        @Query('limit', ShouldIntPipe) limit: number) {
         limit = clampNumber(limit, 1, 100);
         const userID: number = user && user.id || undefined;
         const CommentClass = this.getCommentClass(source);
@@ -88,8 +88,8 @@ export class CommentController {
      */
     @Get(`${APIPrefix}/comments/:source/comment/:commentID/:lastSubCommentID`)
     async subComments(@CurUser() user, @Param('source') source: string, @Param('commentID', MustIntPipe) commentID: number,
-                      @Param('lastSubCommentID', MustIntPipe) lastSubCommentID: number,
-                      @Query('limit', ShouldIntPipe) limit: number) {
+        @Param('lastSubCommentID', MustIntPipe) lastSubCommentID: number,
+        @Query('limit', ShouldIntPipe) limit: number) {
         limit = clampNumber(limit, 1, 100);
         const userID: number = user && user.id || undefined;
         const CommentClass = this.getCommentClass(source);

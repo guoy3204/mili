@@ -47,23 +47,27 @@
     font-size: 18px;
 }
 
-.sign .reset-title, .sign .title {
+.sign .reset-title,
+.sign .title {
     margin: 0 auto 50px;
     padding: 10px;
     font-weight: 400;
     color: #969696;
 }
 
-.sign .reset-title a, .sign .title a {
+.sign .reset-title a,
+.sign .title a {
     padding: 10px;
     color: #969696;
 }
 
-.sign .reset-title b, .sign .title b {
+.sign .reset-title b,
+.sign .title b {
     padding: 10px;
 }
 
-.sign .reset-title .active, .sign .title .active {
+.sign .reset-title .active,
+.sign .title .active {
     font-weight: 700;
     color: #ea6f5a;
     border-bottom: 2px solid #ea6f5a;
@@ -112,15 +116,18 @@
     color: #aaa;
 }
 
-.sign form .input-prepend input::-moz-placeholder {   /* Mozilla Firefox 19+ */
+.sign form .input-prepend input::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
     color: #aaa;
 }
 
-.sign form .input-prepend input:-moz-placeholder {    /* Mozilla Firefox 4 to 18 */
+.sign form .input-prepend input:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
     color: #aaa;
 }
 
-.sign form .input-prepend input:-ms-input-placeholder {  /* Internet Explorer 10-11 */ 
+.sign form .input-prepend input:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
     color: #aaa;
 }
 
@@ -148,13 +155,15 @@
     content: "\E61F";
 }
 
-.sign .disable, .sign .disable-gray {
+.sign .disable,
+.sign .disable-gray {
     opacity: .5;
     filter: alpha(opacity=50);
     pointer-events: none;
 }
 
-.sign .btn-in-resend, .sign .btn-up-resend {
+.sign .btn-in-resend,
+.sign .btn-up-resend {
     position: absolute;
     top: 7px;
     right: 7px;
@@ -171,7 +180,8 @@
     content: "\E614";
 }
 
-.sign .sign-in-button, .sign .sign-up-button {
+.sign .sign-in-button,
+.sign .sign-up-button {
     margin-top: 20px;
     width: 100%;
     padding: 9px 18px;
@@ -186,7 +196,8 @@
     clear: both;
 }
 
-.sign .sign-in-button:hover, .sign .sign-up-button:hover {
+.sign .sign-in-button:hover,
+.sign .sign-up-button:hover {
     background: #3db922;
 }
 
@@ -199,7 +210,8 @@
     color: #969696;
 }
 
-.sign .sign-up-msg a, .sign .sign-up-msg a:hover {
+.sign .sign-up-msg a,
+.sign .sign-up-msg a:hover {
     color: #3194d0;
     text-decoration: none;
 }
@@ -220,7 +232,8 @@
     left: 30px;
 }
 
-.sign .more-sign h6:after, .sign .more-sign h6:before {
+.sign .more-sign h6:after,
+.sign .more-sign h6:before {
     content: "";
     border-top: 1px solid #b5b5b5;
     display: block;
@@ -297,7 +310,7 @@
     position: absolute;
     z-index: 1070;
     display: block;
-    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     letter-spacing: normal;
@@ -454,7 +467,7 @@
     content: "\E605";
 }
 
-.more-sign .github-icon {
+.more-sign .oauth-icon {
     width: 28px;
     height: 28px;
     display: inline-block;
@@ -470,7 +483,7 @@
     font-size: 14px;
     font-weight: 700;
     border-radius: 5px;
-    box-shadow: 0 0 8px rgba(0,0,0,.1);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .1);
     position: absolute;
     left: 48px;
     top: -50px;

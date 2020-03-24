@@ -30,13 +30,13 @@ import { CookieParserMiddleware } from './core/middleware/cookie-parser.middlewa
                 // 将 type 定义为 type: 'mysql' | 'mariadb'; 解决此issue
                 return configService.db;
             },
-            inject: [ ConfigService ],
+            inject: [ConfigService],
         }),
         RedisModule.forRootAsync({
             useFactory: async (configService: ConfigService): Promise<ConfigService> => {
                 return configService;
             },
-            inject: [ ConfigService ],
+            inject: [ConfigService],
         }),
         CommonModule,
         UserModule,
@@ -49,7 +49,7 @@ import { CookieParserMiddleware } from './core/middleware/cookie-parser.middlewa
     ],
 })
 export class AppModule implements NestModule {
-    constructor(private readonly configService: ConfigService) {}
+    constructor(private readonly configService: ConfigService) { }
 
     configure(consumer: MiddlewareConsumer) {
         const middlewares = [

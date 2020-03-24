@@ -2,7 +2,7 @@
   <Modal
     :value="modalVisible"
     @on-visible-change="onModalVisibleChange"
-    :title="bookID ? '编辑开源图书' : '创建开源图书'"
+    :title="bookID ? '编辑图书' : '创建图书'"
     footer-hide
   >
     <Form ref="formNode" :model="formData" :rules="rules" :label-width="80">
