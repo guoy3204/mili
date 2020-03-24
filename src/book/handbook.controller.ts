@@ -45,9 +45,6 @@ export class HandBookController {
             ],
             handbooks: [
                 {},
-                {},
-                {},
-                {},
             ],
         };
         res.render('pages/handbook/handbooks.njk', data);
@@ -72,9 +69,6 @@ export class HandBookController {
     async detailView(@CurUser() user, @Res() res) {
         res.render('pages/handbook/handbookDetail.njk', {
             handbooks: [
-                {},
-                {},
-                {},
                 {},
             ],
         });

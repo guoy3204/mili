@@ -12,7 +12,7 @@
           <span class="presale">预售</span>
           <span>demo</span>
         </div>
-        <div class="desc">介绍 WebGL</div>
+        <div class="desc">介绍</div>
         <div class="author">
           <div class="author-info">
             <div target="_blank" class="user">
@@ -24,7 +24,7 @@
             </div>
           </div>
           <div class="author-desc">
-            <span class="selfDescription">某大型互联网公司前端工程师</span>
+            <span class="selfDescription">作者xxx</span>
           </div>
         </div>
         <div class="other">
@@ -170,7 +170,6 @@ export default {
 }
 
 .handbooks .info .author .hero {
-  width: 26px;
   height: 26px;
   border-radius: 50%;
   margin-right: 8px;

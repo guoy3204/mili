@@ -139,7 +139,6 @@ body {
 }
 
 .handbooks .info .author .hero {
-    width: 26px;
     height: 26px;
     border-radius: 50%;
     margin-right: 8px;
@@ -198,7 +197,8 @@ body {
     top: 124px;
 }
 
-.recommended-books, .recommended-authors {
+.recommended-books,
+.recommended-authors {
     border-radius: 2px;
     overflow: hidden;
     background: #fff;
@@ -209,7 +209,7 @@ body {
 }
 
 .recommended-books {
-    padding: 0; 
+    padding: 0;
 }
 
 .recommended-books .book-item {
@@ -273,14 +273,16 @@ body {
     border-width: 3px 0 3px 3px;
 }
 
-.recommended-books .title, .recommended-authors .title {
+.recommended-books .title,
+.recommended-authors .title {
     padding: 16px 16px 0 16px;
     text-align: left;
     border-bottom: 1px solid hsla(0, 0%, 58.8%, .1);
     padding-bottom: 12px;
 }
 
-.recommended-books .title span, .recommended-authors .title span {
+.recommended-books .title span,
+.recommended-authors .title span {
     font-size: 14px;
     color: #969696;
 }

@@ -69,7 +69,8 @@ export default {
       return true;
     },
     onUploadCallback(res, file) {
-      if (this.uploadPolicy.ossType === 'fs') {
+      const uploadPolicy = this.uploadPolicy || window.uploadPolicy;
+      if (uploadPolicy.ossType === 'fs') {
         if (res.errorCode === ErrorCode.SUCCESS.CODE) {
           const imgData = res.data;
           this.lastImageURL = imgData.url;

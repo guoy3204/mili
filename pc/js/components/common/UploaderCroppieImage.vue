@@ -130,6 +130,7 @@ export default {
           };
           axios.post(this.uploadActionURL, form, config).then(res => {
             res = res.data;
+            const uploadPolicy = this.uploadPolicy || window.uploadPolicy;
             if (uploadPolicy.ossType === 'fs') {
               if (res.errorCode === ErrorCode.SUCCESS.CODE) {
                 const imgData = res.data;

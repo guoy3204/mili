@@ -189,7 +189,8 @@ body {
     position: relative;
 }
 
-.button, button {
+.button,
+button {
     -webkit-appearance: none;
     appearance: none;
     background-color: #007fff;
@@ -394,7 +395,7 @@ body {
     height: 16px;
     color: #df6753;
     padding: 0 6px;
-    background-color:#ffede9;
+    background-color: #ffede9;
     font-size: 12px;
     line-height: 16px;
     border-radius: 8px;
@@ -485,7 +486,8 @@ body {
     font-size: 18px;
 }
 
-.section .step:after, .section .step:before {
+.section .step:after,
+.section .step:before {
     z-index: 0;
     position: absolute;
     left: 50%;
@@ -512,7 +514,8 @@ body {
     top: 0;
 }
 
-.section-of-info .section .step:after, .section-of-info .section .step:before {
+.section-of-info .section .step:after,
+.section-of-info .section .step:before {
     width: 2px;
 }
 
@@ -719,7 +722,6 @@ body {
 }
 
 .handbooks .info .author .hero {
-    width: 26px;
     height: 26px;
     border-radius: 50%;
     margin-right: 8px;
