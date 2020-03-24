@@ -157,7 +157,6 @@ export class EditorController {
             recommendCollections: recommendCollections || [],
             contributeCollections: contributeCollections || [],
             weiboShareURL: getShareURL({ ...shareData, platform: SocialConstants.WEIBO }),
-            qqShareURL: getShareURL({ ...shareData, platform: SocialConstants.QQ }),
             weixinShareURL: getShareURL({ ...shareData, platform: SocialConstants.WEIXIN }),
         });
     }

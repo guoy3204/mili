@@ -29,7 +29,7 @@ export class ArticleController {
         private readonly userService: UserService,
         private readonly redisService: RedisService,
         private readonly bookService: BookService,
-    ) {}
+    ) { }
 
     @Get('/p/:id')
     async detailView(@CurUser() user, @Param('id', MustIntPipe) id: number, @Res() res) {
@@ -62,7 +62,10 @@ export class ArticleController {
             imageURL: article.coverURL,
             url: '',
         };
-
+        let weiboShareURL;
+        if (this.configService.weibo.appKey && this.configService.weibo.appSecret) {
+            weiboShareURL = getShareURL({ ...shareData, platform: SocialConstants.WEIBO });
+        }
         res.render('pages/article/articleDetail', {
             isAuthorSelf: !!user && user.id === article.user.id,
             userLevelChapterURL: this.configService.static.userLevelChapterURL,
@@ -71,8 +74,7 @@ export class ArticleController {
             article,
             articles: recommends.list,
             recommendedBooks: books,
-            weiboShareURL: getShareURL({ ...shareData, platform: SocialConstants.WEIBO }),
-            qqShareURL: getShareURL({ ...shareData, platform: SocialConstants.QQ }),
+            weiboShareURL: weiboShareURL,
             weixinShareURL: getShareURL({ ...shareData, platform: SocialConstants.WEIXIN }),
         });
     }
@@ -159,7 +161,7 @@ export class ArticleController {
     @UseGuards(ActiveGuard)
     async create(@CurUser() user, @Body() createArticleDto: EditArticleDto) {
         user.articleCount++;
-        const [ createResult ] = await Promise.all([
+        const [createResult] = await Promise.all([
             this.articleService.create(createArticleDto, user.id),
             this.redisService.setUser(user),
             // this.redisService.delCache(this.redisService.cacheKeys.articles),

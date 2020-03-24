@@ -30,7 +30,7 @@ export class ArticleService {
 
         private readonly logger: MyLoggerService,
         private readonly configService: ConfigService,
-    ) {}
+    ) { }
 
     async isExist(id: number): Promise<boolean> {
         const article = await this.articleRepository.findOne({
@@ -82,19 +82,19 @@ export class ArticleService {
     async incArticleViewCount(articleID: number, authorID: number) {
         await Promise.all([
             this.articleRepository.createQueryBuilder()
-                    .update()
-                    .set({
-                        browseCount: () => 'browse_count + 1',
-                    })
-                    .where('id = :id', { id: articleID })
-                    .execute(),
+                .update()
+                .set({
+                    browseCount: () => 'browse_count + 1',
+                })
+                .where('id = :id', { id: articleID })
+                .execute(),
             this.userRepository.createQueryBuilder()
-                    .update()
-                    .set({
-                        articleViewCount: () => 'article_view_count + 1',
-                    })
-                    .where('id = :id', { id: authorID })
-                    .execute(),
+                .update()
+                .set({
+                    articleViewCount: () => 'article_view_count + 1',
+                })
+                .where('id = :id', { id: authorID })
+                .execute(),
         ]);
     }
 
@@ -112,6 +112,7 @@ export class ArticleService {
                 summary: true,
                 content: true,
                 htmlContent: true,
+                userID: true
             },
             relations: ['categories', 'tags'],
             where: {
@@ -190,7 +191,7 @@ export class ArticleService {
             })
             .orderBy(sort, order)
             .skip((page - 1) * pageSize).take(pageSize)
-            .orderBy({'a.createdAt': 'DESC'}).getManyAndCount();
+            .orderBy({ 'a.createdAt': 'DESC' }).getManyAndCount();
         return {
             list,
             count,
@@ -216,7 +217,7 @@ export class ArticleService {
                 tagID,
             })
             .skip((page - 1) * pageSize).take(pageSize)
-            .orderBy({[orderStr]: 'DESC'}).getManyAndCount();
+            .orderBy({ [orderStr]: 'DESC' }).getManyAndCount();
         return {
             list,
             count,
@@ -230,8 +231,8 @@ export class ArticleService {
      */
     async recommendList(page: number, pageSize: number, sort: string): Promise<ListResult<Article>> {
         const sortMap = {
-            popular: { hot: 'DESC'},
-            newest: { id: 'DESC'},
+            popular: { hot: 'DESC' },
+            newest: { id: 'DESC' },
             noreply: { commentCount: 'ASC', id: 'DESC' },
         };
         const [list, count] = await this.articleRepository.findAndCount({
@@ -284,7 +285,7 @@ export class ArticleService {
             where: {
                 status: Not(ArticleStatus.VerifyFail),
             },
-            order: { id: 'DESC'},
+            order: { id: 'DESC' },
             skip: (page - 1) * pageSize,
             take: pageSize,
         });
@@ -620,7 +621,7 @@ export class ArticleService {
     }
 
     async likeOrCancelLike(articleID: number, userID: number) {
-        const [ userLiked, article ] = await Promise.all([
+        const [userLiked, article] = await Promise.all([
             this.isUserLiked(articleID, userID),
             this.articleRepository.findOne({
                 select: ['id', 'userID'],
@@ -638,17 +639,17 @@ export class ArticleService {
                 const cancelSQL1 = `DELETE FROM like_articles WHERE article_id = ? AND user_id = ?`;
                 const cancelSQL2 = `UPDATE articles SET liked_count = liked_count - 1 WHERE id = ?`;
                 const cancelSQL3 = `UPDATE users SET liked_count = liked_count - 1 WHERE id = ?`;
-                await manager.query(cancelSQL1, [ articleID, userID ]);
-                await manager.query(cancelSQL2, [ articleID ]);
-                await manager.query(cancelSQL3, [ article.userID ]);
+                await manager.query(cancelSQL1, [articleID, userID]);
+                await manager.query(cancelSQL2, [articleID]);
+                await manager.query(cancelSQL3, [article.userID]);
                 return;
             }
             const sql1 = `INSERT INTO like_articles (user_id, article_id, publisher, created_at) VALUES (?, ?, ?, ?)`;
             const sql2 = `UPDATE articles SET liked_count = liked_count + 1 WHERE id = ${articleID}`;
             const sql3 = `UPDATE users SET liked_count = liked_count + 1 WHERE id = ?`;
-            await manager.query(sql1, [ userID, articleID, article.userID, new Date() ]);
-            await manager.query(sql2, [ articleID ]);
-            await manager.query(sql3, [ article.userID ]);
+            await manager.query(sql1, [userID, articleID, article.userID, new Date()]);
+            await manager.query(sql2, [articleID]);
+            await manager.query(sql3, [article.userID]);
         });
     }
 

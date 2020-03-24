@@ -1,5 +1,6 @@
 <template>
   <div class="article-suspended-panel article-suspended-panel">
+    <ErrorTip ref="errorTip" />
     <div
       @click="onLike"
       class="like-btn panel-btn like-adjust"
@@ -12,10 +13,14 @@
       :badge="articleCommentCount"
       :class="{'with-badge': articleCommentCount}"
     ></div>
-    <div class="collect-btn panel-btn"></div>
+    <div @click="onCollectClick" class="collect-btn panel-btn"></div>
     <div class="share-title">分享</div>
-    <a :href="weiboShareURL" target="_blank" class="weibo-btn share-btn panel-btn"></a>
-    <a :href="qqShareURL" target="_blank" class="qq-btn share-btn panel-btn"></a>
+    <a
+      v-if="weiboShareURL"
+      :href="weiboShareURL"
+      target="_blank"
+      class="weibo-btn share-btn panel-btn"
+    ></a>
     <div class="wechat-btn share-btn panel-btn" @click="onWeixinShareClick"></div>
     <ArticleShareQRCode ref="qrCodePopup" :url="weixinShareURL" />
   </div>
@@ -25,6 +30,7 @@
 import { ErrorCode } from '~/js/constants/error.js';
 import { myHTTP } from '~/js/common/net.js';
 import ArticleShareQRCode from '~/js/components/article/ArticleShareQRCode.vue';
+import ErrorTip from '~/js/components/common/ErrorTip.vue';
 
 export default {
   data() {
@@ -34,7 +40,6 @@ export default {
       articleLikedCount: window.articleLikedCount, // 文章点赞数
       articleCommentCount: window.articleCommentCount,
       weiboShareURL: window.weiboShareURL,
-      qqShareURL: window.qqShareURL,
       weixinShareURL: window.weixinShareURL,
     };
   },
@@ -65,11 +70,15 @@ export default {
       // 视图滚动到评论
       document.getElementsByClassName('comment-scroll-to')[0].scrollIntoView();
     },
+    onCollectClick() {
+      this.$refs.errorTip.show('功能在在开发中...');
+    },
     onWeixinShareClick() {
       this.$refs.qrCodePopup.show();
     },
   },
   components: {
+    ErrorTip,
     ArticleShareQRCode,
   },
 };
