@@ -76,7 +76,7 @@ export default {
     bookTypeLabel() {
       return {
         book: '图书',
-        handbook: '小册',
+        handbook: '小书',
       }[this.type];
     },
   },

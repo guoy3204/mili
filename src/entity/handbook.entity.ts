@@ -9,7 +9,7 @@ import {
 import { User } from './user.entity';
 import { HandBookChapterComment } from './comment.entity';
 
-@Entity({name: 'handbooks'})
+@Entity({ name: 'handbooks' })
 export class HandBook {
     @PrimaryGeneratedColumn()
     id: number;
@@ -36,7 +36,7 @@ export class HandBook {
     price: number;
 
     @Column('datetime', { name: 'completion_at' })
-    completionAt: Date; // 小册完成时间
+    completionAt: Date; // 小书完成时间
 
     @Column('boolean', { name: 'is_all_done' })
     isAllDone: boolean; // 所有章节已完成
@@ -48,7 +48,7 @@ export class HandBook {
     coverURL: string; // 封面图片
 
     @Column('int', { name: 'word_count' })
-    wordCount: number; // 小册一共写了多少字
+    wordCount: number; // 小书一共写了多少字
 
     @Column('int', { name: 'sale_count' })
     saleCount: number;
@@ -64,7 +64,7 @@ export class HandBook {
     user: User;
 }
 
-@Entity({name: 'handbook_chapters'})
+@Entity({ name: 'handbook_chapters' })
 export class HandBookChapter {
     @PrimaryGeneratedColumn()
     id: number;

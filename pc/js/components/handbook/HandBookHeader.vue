@@ -1,14 +1,14 @@
 <template>
   <div class="editor-header">
     <ErrorTip ref="errorTip" />
-    <!-- 小册平台写作线上协议 -->
+    <!-- 小书平台写作线上协议 -->
     <AgreementAlert ref="agreementAlert" @cancel="onAgreementAlertCancel" width="556" />
     <!-- 收益与结算弹框 -->
     <PriceAlert ref="priceAlert" @cancel="onPriceAlertCancel" width="500" />
-    <input v-model="name" class="editor-title-input" type="text" placeholder="输入小册标题..." />
+    <input v-model="name" class="editor-title-input" type="text" placeholder="输入小书标题..." />
     <div class="user-actions-box">
       <UserDropdown :userID="userID" :avatarURL="avatarURL" menuAlign="right" />
-      <!-- 发布小册 -->
+      <!-- 发布小书 -->
       <div v-clickoutside="onClickOutsidePublishToggle" class="publish-popup">
         <div @click="onPublishToggle" class="toggle-btn">
           <span class="publish-popup-btn">提交</span>
@@ -21,7 +21,7 @@
             <div class="sub-title">摘要</div>
             <textarea
               v-model="summary"
-              placeholder="必填，摘要将显示在小册详情页标题的下方，建议 50 字以内"
+              placeholder="必填，摘要将显示在小书详情页标题的下方，建议 50 字以内"
               max-length="50"
               class="summary-textarea"
             ></textarea>
@@ -39,7 +39,7 @@
           </div>
           <div class="price-box">
             <div class="sub-title">
-              <span>小册价格</span>
+              <span>小书价格</span>
               <span @click="onShowPriceAlert" class="quarterly-earnings">!</span>
             </div>
             <div class="price-input-number">
@@ -54,7 +54,7 @@
           </div>
           <div class="price-box">
             <div class="sub-title">
-              <span>小册完成时间</span>
+              <span>小书完成时间</span>
             </div>
             <div>
               <DatePicker
@@ -71,7 +71,7 @@
             <input v-model="isAgree" type="checkbox" />
             <div class="txt">
               <span>我已阅读同意</span>
-              <span @click="onShowAgreement" class="agreement">《{{siteName}}小册写作线上协议》</span>
+              <span @click="onShowAgreement" class="agreement">《{{siteName}}小书写作线上协议》</span>
             </div>
           </label>
           <label class="line-confirmation">
@@ -83,13 +83,13 @@
           <button @click="onFinalPublish" class="publish-btn handbook-publish">确定并更新</button>
         </div>
       </div>
-      <!-- 添加小册封面 -->
+      <!-- 添加小书封面 -->
       <div v-clickoutside="onClickOutsideCoverToggle" class="upload-cover">
-        <!-- 点击小图标来切换 [添加小册封面] 的面板 -->
+        <!-- 点击小图标来切换 [添加小书封面] 的面板 -->
         <div v-if="!coverURL" @click="onCoverToggle" class="upload-cover-img"></div>
         <div v-else @click="onCoverToggle" class="upload-cover-img2"></div>
         <div v-if="coverToggled" class="panel">
-          <div class="title">添加小册封面</div>
+          <div class="title">添加小书封面</div>
           <div class="book-img-size">建议650*910（png格式）</div>
           <Uploader
             v-show="!isCoverUploading && !coverURL"
@@ -128,12 +128,12 @@ export default {
   props: ['saveIntroduceOrChapter', 'userID', 'avatarURL', 'siteName'],
   data() {
     return {
-      id: undefined, // 小册id
+      id: undefined, // 小书id
       name: '',
       summary: '',
       authorIntro: '',
       price: 0,
-      completionAt: null, // 小册完成时间
+      completionAt: null, // 小书完成时间
       isAgree: false,
       isAllDone: false, // 所有章节已完成
       coverURL: '',
@@ -161,10 +161,10 @@ export default {
     onDateChange(date) {
       this.completionAt = new Date(date);
     },
-    // 更新小册
+    // 更新小书
     onFinalPublish() {
       if (!this.name) {
-        this.$refs.errorTip.show('小册标题不能为空');
+        this.$refs.errorTip.show('小书标题不能为空');
         return;
       }
       if (!this.summary) {
@@ -173,16 +173,16 @@ export default {
       }
 
       if (!this.isAgree) {
-        this.$refs.errorTip.show('请先同意小册写作线上协议');
+        this.$refs.errorTip.show('请先同意小书写作线上协议');
         return;
       }
 
       if (!this.completionAt) {
-        this.$refs.errorTip.show('请选择小册完成时间');
+        this.$refs.errorTip.show('请选择小书完成时间');
         return;
       }
 
-      // 先更新当前选中的章节，也可能先更新当前选中的小册介绍, 然后回调过来，再保存小册
+      // 先更新当前选中的章节，也可能先更新当前选中的小书介绍, 然后回调过来，再保存小书
       this.saveIntroduceOrChapter()
         .then(res => {
           if (res.data.errorCode !== ErrorCode.SUCCESS.CODE) {

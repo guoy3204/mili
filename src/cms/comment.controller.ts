@@ -35,7 +35,7 @@ export class CommentController {
     ) { }
 
     /**
-     * 图书 或 小册 下的评论，
+     * 图书 或 小书 下的评论，
      */
     @Get(`${APIPrefix}/comments/collection/:collectionName/:collectionID`)
     async collectionComments(@Param('collectionName') collectionName: string,

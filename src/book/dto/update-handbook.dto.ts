@@ -5,7 +5,7 @@ import { HandBookConstants } from '../../constants/handbook';
 
 export class UpdateHandBookIntroduceDto {
     @MaxLength(HandBookConstants.INTRODUCE_MAX_LENGTH, {
-        message: '小册介绍不能超过 $constraint1 个字符',
+        message: '小书介绍不能超过 $constraint1 个字符',
     })
     @IsString()
     readonly introduce: string;
@@ -13,24 +13,24 @@ export class UpdateHandBookIntroduceDto {
 
 export class UpdateHandBookDto {
     @MinLength(HandBookConstants.TITLE_MIN_LENGTH, {
-        message: '小册标题不能为空',
+        message: '小书标题不能为空',
     })
     @MaxLength(HandBookConstants.TITLE_MAX_LENGTH, {
-        message: '小册标题不能超过 $constraint1 个字符',
+        message: '小书标题不能超过 $constraint1 个字符',
     })
     @IsString({
-        message: '小册标题不能为空',
+        message: '小书标题不能为空',
     })
     readonly name: string;
 
     @MinLength(HandBookConstants.SUMMARY_MIN_LENGTH, {
-        message: '小册摘要不能为空',
+        message: '小书摘要不能为空',
     })
     @MaxLength(HandBookConstants.SUMMARY_MAX_LENGTH, {
-        message: '小册摘要不能超过 $constraint1 个字符',
+        message: '小书摘要不能超过 $constraint1 个字符',
     })
     @IsString({
-        message: '小册摘要不能为空',
+        message: '小书摘要不能为空',
     })
     readonly summary: string;
 

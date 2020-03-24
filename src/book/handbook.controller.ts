@@ -51,7 +51,7 @@ export class HandBookController {
     }
 
     /**
-     * 创建小册的页面
+     * 创建小书的页面
      */
     @Get('/handbooks/new')
     @UseGuards(ActiveGuard, RolesGuard)
@@ -75,7 +75,7 @@ export class HandBookController {
     }
 
     /**
-     * 编辑小册章节的页面
+     * 编辑小书章节的页面
      */
     @Get('/handbooks/:handbookID/chapters/:chapterID/edit')
     @UseGuards(ActiveGuard, RolesGuard)
@@ -90,7 +90,7 @@ export class HandBookController {
     }
 
     /**
-     * 小册详请
+     * 小书详请
      */
     @Get(`${APIPrefix}/handbooks/:id`)
     @UseGuards(ActiveGuard, RolesGuard)
@@ -116,7 +116,7 @@ export class HandBookController {
     }
 
     /**
-     * 用户已购买的小册
+     * 用户已购买的小书
      */
     @Get(`${APIPrefix}/handbooks/users/:userID/buy`)
     async userBuyHandBooks(@CurUser() user) {
@@ -134,7 +134,7 @@ export class HandBookController {
     }
 
     /**
-     * 撰写的小册
+     * 撰写的小书
      */
     @Get(`${APIPrefix}/handbooks/users/:id/my`)
     @UseGuards(ActiveGuard, RolesGuard)
@@ -145,7 +145,7 @@ export class HandBookController {
     }
 
     /**
-     * 创建小册
+     * 创建小书
      */
     @Post(`${APIPrefix}/handbooks`)
     @UseGuards(ActiveGuard, RolesGuard)
@@ -158,7 +158,7 @@ export class HandBookController {
     }
 
     /**
-     * 创建小册的章节
+     * 创建小书的章节
      */
     @Post(`${APIPrefix}/handbooks/:id/chapters`)
     @UseGuards(ActiveGuard, RolesGuard)
@@ -178,7 +178,7 @@ export class HandBookController {
     }
 
     /**
-     * 更新小册的章节标题
+     * 更新小书的章节标题
      */
     @Put(`${APIPrefix}/handbooks/chapters/:id/title`)
     @UseGuards(ActiveGuard, RolesGuard)
@@ -191,7 +191,7 @@ export class HandBookController {
     }
 
     /**
-     * 更新小册介绍
+     * 更新小书介绍
      */
     @Put(`${APIPrefix}/handbooks/:id/introduce`)
     @UseGuards(ActiveGuard, RolesGuard)
@@ -202,7 +202,7 @@ export class HandBookController {
     }
 
     /**
-     * 更新小册
+     * 更新小书
      */
     @Put(`${APIPrefix}/handbooks/:id`)
     @UseGuards(ActiveGuard, RolesGuard)
@@ -210,7 +210,7 @@ export class HandBookController {
     async updateHandbook(@CurUser() user, @Param('id', MustIntPipe) id: number, @Body() dto: UpdateHandBookDto) {
         if (!dto.isAgree) {
             throw new MyHttpException({
-                message: '请先同意小册线上协议',
+                message: '请先同意小书线上协议',
             });
         }
         await this.handBookService.updateHandBook(id, dto, user.id);

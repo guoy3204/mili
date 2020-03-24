@@ -10,7 +10,7 @@
           <a
             :href="`/${isHandbook ? 'handbooks' : 'books'}`"
             class="label"
-          >{{isHandbook ? '小册' : '图书'}}</a>
+          >{{isHandbook ? '小书' : '图书'}}</a>
         </div>
         <div class="book-directory bought">
           <router-link

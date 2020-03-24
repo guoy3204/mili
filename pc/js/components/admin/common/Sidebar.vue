@@ -90,29 +90,6 @@ export default {
         ],
       },
       {
-        name: 'boilingpoint',
-        icon: 'md-radio-button-on',
-        meta: {
-          title: '圈子管理',
-        },
-        children: [
-          {
-            name: `/boilingpoint/list`,
-            icon: 'ios-ionic',
-            meta: {
-              title: '圈子',
-            },
-          },
-          {
-            name: `/boilingpoint/topic`,
-            icon: 'ios-chatboxes',
-            meta: {
-              title: '话题',
-            },
-          },
-        ],
-      },
-      {
         name: 'book',
         icon: 'ios-book',
         meta: {
@@ -130,7 +107,7 @@ export default {
             name: `/handbook/category`,
             icon: 'md-folder',
             meta: {
-              title: '小册分类',
+              title: '小书分类',
             },
           },
           {
@@ -151,7 +128,7 @@ export default {
             name: `/handbook/list`,
             icon: 'md-bookmarks',
             meta: {
-              title: '小册',
+              title: '小书',
             },
           },
         ],

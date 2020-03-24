@@ -108,7 +108,7 @@ export class User {
     uBoilingPointLikeCount: number; // 用户对圈子点了多少个赞
 
     @Column('int', { name: 'collection_count', default: 0 })
-    collectionCount: number; // 收藏集的个数
+    collectionCount: number; // 收藏的个数
 
     @Column('int')
     role: UserRole; // 角色

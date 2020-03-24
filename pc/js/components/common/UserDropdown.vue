@@ -16,7 +16,7 @@
         <li v-if="userID === 44">
           <a href="/handbooks/new">
             <i class="fa fa-book" aria-hidden="true"></i>
-            <span>写小册</span>
+            <span>写小书</span>
           </a>
         </li>
         <li>
@@ -41,13 +41,13 @@
         <li>
           <a :href="`/uc/${userID}/writehandbooks`">
             <i class="fa fa-sticky-note" aria-hidden="true"></i>
-            <span>我的小册</span>
+            <span>我的小书</span>
           </a>
         </li>
         <li>
           <a :href="`/uc/${userID}/collections`">
             <i class="fa fa-star" aria-hidden="true"></i>
-            <span>我的收藏集</span>
+            <span>我的收藏</span>
           </a>
         </li>
         <li>

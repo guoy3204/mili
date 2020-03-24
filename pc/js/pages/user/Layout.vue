@@ -111,14 +111,14 @@
                 class="nav-item"
                 :class="{active: isHandbookPage}"
               >
-                <div class="item-title">小册</div>
+                <div class="item-title">小书</div>
               </router-link>
               <router-link
                 :to="`/uc/${author.id}/collections`"
                 class="nav-item"
                 active-class="active"
               >
-                <div class="item-title">收藏集</div>
+                <div class="item-title">收藏</div>
               </router-link>
             </div>
           </div>
@@ -192,7 +192,7 @@
         </div>
         <div class="more-block">
           <router-link :to="`/uc/${author.id}/collections`" class="more-item">
-            <div class="item-title">收藏集</div>
+            <div class="item-title">收藏</div>
             <div class="item-count">{{author.collectionCount | prettyCount}}</div>
           </router-link>
           <router-link :to="`/uc/${author.id}/followtags`" class="more-item">
@@ -244,7 +244,7 @@ export default {
       isArticlePage: false, // 当前浏览器中的url是否是文章页面url
       isLikePage: false, // 当前浏览器中的url是否是赞页面url
       isFollowPage: false, // 当前浏览器中的url是否是关注页面url
-      isHandbookPage: false, // 当前浏览器中的url是否是小册页面url
+      isHandbookPage: false, // 当前浏览器中的url是否是小书页面url
     };
   },
   mounted() {

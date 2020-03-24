@@ -16,7 +16,7 @@ import { MyLoggerService } from '../common/logger.service';
 export class IndexController {
     constructor(
         private readonly logger: MyLoggerService,
-    ) {}
+    ) { }
 
     @Get(`${AdminPageURL}/*`)
     @UseGuards(ActiveGuard, RolesGuard)

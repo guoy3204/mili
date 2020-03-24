@@ -85,6 +85,7 @@ import BoilingPointLoading from '~/js/components/boilingpoint/BoilingPointLoadin
 import BoilingPointItem from '~/js/components/boilingpoint/BoilingPointItem.vue';
 import Pinterest from '~/js/components/common/Pinterest.vue';
 import ReportAlert from '~/js/components/boilingpoint/ReportAlert.vue';
+import { ErrorCode } from '~/js/constants/error.js';
 
 import { getWindowSize } from '~/js/utils/dom.js';
 
@@ -130,9 +131,11 @@ export default {
       }
     },
     onLoad(result) {
-      this.boilingPoints = this.boilingPoints.concat(result.data.data.list);
-      if (!result.data.data.count) {
-        this.$emit('empty');
+      if (result.data.errorCode === ErrorCode.SUCCESS.CODE) {
+        this.boilingPoints = this.boilingPoints.concat(result.data.data.list);
+        if (!result.data.data.count) {
+          this.$emit('empty');
+        }
       }
     },
     onBrowseBigImg(imgs, index) {
