@@ -167,8 +167,8 @@ npm start
 按快捷键`F5`来运行项目
 
 ### 本地访问
-首页: http://local.cmd.com    
-管理后台: http://local.cmd.com/admin/  
+首页: http://local.cms.com    
+管理后台: http://local.cms.com/admin/  
 用户名: admin  
 密码: 123456
 
