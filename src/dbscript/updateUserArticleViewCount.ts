@@ -1,6 +1,6 @@
 import { parseCountResult } from '../utils/query';
 
-export const updateUserArticleViewCount = async (connection) => {
+export const updateUserArticleViewCountRun = async (connection) => {
     try {
         const users = await connection.manager.query(`SELECT id FROM users`);
         // tslint:disable-next-line: prefer-for-of

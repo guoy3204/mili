@@ -29,7 +29,7 @@ export class EditTopicDto {
     readonly name: string;
 
     @IsUrl({
-        protocols: ['https'],
+        protocols: ['https', 'http'],
         require_protocol: true,
     })
     readonly icon: string;

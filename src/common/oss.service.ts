@@ -7,12 +7,12 @@ import * as mime from 'mime';
 import axios from 'axios';
 import * as moment from 'moment';
 import * as util from 'util';
-import * as OSS from 'ali-oss';
+import * as OSSClient from 'ali-oss';
 import { base64Encode, hmacSHA1 } from '../utils/security';
 import { ConfigService } from '../config/config.service';
 import { extName, urlBaseName } from '../utils/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, In } from 'typeorm';
+import { Repository, In, Equal } from 'typeorm';
 import { Image } from '../entity/image.entity';
 import { APIPrefix } from '../constants/constants';
 
@@ -25,39 +25,67 @@ export class OSSService {
 
         @InjectRepository(Image)
         private readonly imageRepository: Repository<Image>,
-    ) {}
+    ) { }
 
-    private createOSSClient() {
-        const client = new OSS({
-            region: this.configService.aliyunOSS.region,
-            accessKeyId: this.configService.aliyunOSS.accessKeyID,
-            accessKeySecret: this.configService.aliyunOSS.accessKeySecret,
-            bucket: this.configService.aliyunOSS.bucket,
+    private createOSSClient(): OSSClient {
+        const aliyunOssCfg = this.configService.OSS.aliyun;
+        const client = new OSSClient({
+            region: aliyunOssCfg.region,
+            accessKeyId: aliyunOssCfg.accessKeyID,
+            accessKeySecret: aliyunOssCfg.accessKeySecret,
+            bucket: aliyunOssCfg.bucket,
         });
         return client;
     }
 
-    async requestPolicy() {
+    async requestPolicy(csrfToken: string = "") {
+        if (this.configService.env === this.configService.DEVELOPMENT || this.configService.OSS.type === "fs") {
+            const now = moment();
+            const serverUrl = this.configService.server.url;
+            const ossCfg = this.configService.OSS;
+            const staticConfig = this.configService.static;
+            const imgMaxSizeM = staticConfig.imgMaxSize;
+            return {
+                ossType: "fs",
+                uploadActionURL: `${serverUrl}${APIPrefix}/common/oss/createimg`,
+                uploadFieldName: ossCfg.uploadFieldName,
+                uploadPrefix: ossCfg.uploadPrefix + '/' + now.year() + '/' + (now.month() + 1),
+                imgFormat: staticConfig.imgFormat,
+                imgMaxSize: imgMaxSizeM,
+                imgMaxSizeError: util.format(staticConfig.imgMaxSizeError, staticConfig.imgMaxSize / 1024 / 1024),
+                uploadData: {
+                    'key': '', // 上传文件的object名称
+                    'success_action_status': 201,
+                },
+                uploadImgURL: staticConfig.uploadImgURL,
+                csrfToken: csrfToken
+            };
+        } else if (this.configService.OSS.type === "aliyun") {
+            return this.requestAliyunOSSPolicy();
+        }
+    }
+    async requestAliyunOSSPolicy() {
         const now = moment();
-        const aliyun = this.configService.aliyunOSS;
+        const ossCfg = this.configService.OSS;
+        const aliyunOssCfg = ossCfg.aliyun;
         const staticConfig = this.configService.static;
         const imgMaxSizeM = staticConfig.imgMaxSize;
         const policy = {
             // 设置Policy的失效时间, 以ISO8601 GMT时间表示
             // 超过失效时间，就无法通过此Policy上传文件
-            expiration: moment().add(aliyun.expiration, 'hours').toISOString(),
+            expiration: moment().add(ossCfg.expiration, 'hours').toISOString(),
             conditions: [
-                { bucket: aliyun.bucket },
-                [ 'starts-with', '$key', aliyun.uploadPrefix ],
-                [ 'content-length-range', 1, imgMaxSizeM], // 设置上传文件的大小限制, 单位字节
+                { bucket: aliyunOssCfg.bucket },
+                ['starts-with', '$key', ossCfg.uploadPrefix],
+                ['content-length-range', 1, imgMaxSizeM], // 设置上传文件的大小限制, 单位字节
             ],
         };
 
         const base64Policy = base64Encode(JSON.stringify(policy));
-        const signature = hmacSHA1(aliyun.accessKeySecret, base64Policy);
-        const domain = this.configService.server.domain;
+        const signature = hmacSHA1(aliyunOssCfg.accessKeySecret, base64Policy);
+        const serverUrl = this.configService.server.url;
         const callbackObj = {
-            callbackUrl: `https://${domain}${APIPrefix}/common/oss/callback`,
+            callbackUrl: `${serverUrl}${APIPrefix}/common/oss/callback`,
             callbackBody: '{' + [
                 '\"mimeType\":${mimeType}',
                 '\"size\":${size}',
@@ -67,48 +95,44 @@ export class OSSService {
                 '\"format\":${imageInfo.format}',
                 '\"callback-token\":${x:callback-token}',
             ].join(',') + '}',
-			callbackBodyType: 'application/json',
+            callbackBodyType: 'application/json',
         };
         const isDev = this.configService.env === this.configService.DEVELOPMENT;
         return {
-            uploadActionURL: aliyun.uploadActionURL,
-            uploadFieldName: aliyun.uploadFieldName,
-            uploadPrefix: aliyun.uploadPrefix + '/' + now.year() + '/' + (now.month() + 1),
+            ossType: "aliyun",
+            uploadActionURL: aliyunOssCfg.uploadActionURL,
+            uploadFieldName: ossCfg.uploadFieldName,
+            uploadPrefix: ossCfg.uploadPrefix + '/' + now.year() + '/' + (now.month() + 1),
             imgFormat: staticConfig.imgFormat,
             imgMaxSize: imgMaxSizeM,
             imgMaxSizeError: util.format(staticConfig.imgMaxSizeError, staticConfig.imgMaxSize / 1024 / 1024),
             uploadData: {
-                'OSSAccessKeyId': aliyun.accessKeyID,
+                'OSSAccessKeyId': aliyunOssCfg.accessKeyID,
                 'policy': base64Policy,
                 'Signature': signature,
                 'key': '', // 上传文件的object名称
                 'success_action_status': 201,
                 'callback': !isDev ? base64Encode(JSON.stringify(callbackObj)) : undefined,
-                'x:callback-token': !isDev ? this.configService.aliyunOSS.callbackSecretToken : undefined,
+                'x:callback-token': !isDev ? ossCfg.callbackSecretToken : undefined,
             },
             uploadImgURL: staticConfig.uploadImgURL,
         };
     }
 
     async uploadFromStreamURL(url: string, pathname: string): Promise<string> {
-        const client = new OSS({
-            region: this.configService.aliyunOSS.region,
-            accessKeyId: this.configService.aliyunOSS.accessKeyID,
-            accessKeySecret: this.configService.aliyunOSS.accessKeySecret,
-            bucket: this.configService.aliyunOSS.bucket,
-        });
+        const client: OSSClient = this.createOSSClient();
         const res = await axios({
             method: 'get',
             url,
             responseType: 'stream',
         });
-        const uploadName = `${this.configService.aliyunOSS.uploadPrefix}${pathname}`;
+        const uploadName = `${this.configService.OSS.uploadPrefix}${pathname}`;
         const result = await client.putStream(uploadName, res.data.pipe(new PassThrough()));
         let name = result.name || '';
         if (name.charAt(0) !== '/') {
             name = '/' + name;
         }
-        return this.configService.static.uploadImgURL + name;
+        return this.getImageURL(name);
     }
 
     getImageURL(path: string) {
@@ -118,30 +142,44 @@ export class OSSService {
         if (path.charAt(0) !== '/') {
             path = '/' + path;
         }
-        return this.configService.static.uploadImgURL + path;
+        const serverUrl = this.configService.server.url;
+        if (this.configService.static.uploadImgURL) {
+            return this.configService.static.uploadImgURL + path;
+        } else {
+            return `${serverUrl}${APIPrefix}/common/oss/img?key=${path}`;
+        }
     }
 
-    async getImageInfo(path: string) {
+    async getImageInfo(path: string): Promise<Image> {
         if (path.charAt(0) !== '/') {
             path = '/' + path;
         }
-        const client = this.createOSSClient();
-        let result;
-        try {
-            result = await client.get(path, {process: 'image/info'});
-        } catch (err) {
-            console.log(err);
-            return null;
+        if (this.configService.env === this.configService.DEVELOPMENT || this.configService.OSS.type === "fs") {
+            return await this.imageRepository.findOne({
+                where: {
+                    url: Equal(path),
+                },
+            });
         }
-        const imgData = JSON.parse(result.content.toString());
-        return {
-            mime: mime.getType(imgData.Format.value),
-            size: parseInt(imgData.FileSize.value, 10),
-            url: path,
-            width: parseInt(imgData.ImageWidth.value, 10),
-            height: parseInt(imgData.ImageHeight.value, 10),
-            format: imgData.Format.value,
-        };
+        else if (this.configService.OSS.type === "aliyun") {
+            const client = this.createOSSClient();
+            let result;
+            try {
+                result = await client.get(path, { process: 'image/info' });
+            } catch (err) {
+                console.log(err);
+                return null;
+            }
+            const imgData = JSON.parse(result.content.toString());
+            let img = new Image();
+            img.mime = mime.getType(imgData.Format.value);
+            img.size = parseInt(imgData.FileSize.value, 10);
+            img.url = path;
+            img.width = parseInt(imgData.ImageWidth.value, 10);
+            img.height = parseInt(imgData.ImageHeight.value, 10);
+            img.format = imgData.Format.value;
+            return img;
+        }
     }
 
     async createImage(imgData) {

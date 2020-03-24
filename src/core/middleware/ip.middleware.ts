@@ -7,7 +7,7 @@ import { MyRequest } from '../types/net';
 export class IpMiddleware implements NestMiddleware {
     constructor(
         private readonly logger: MyLoggerService,
-    ) {}
+    ) { }
 
     use(request: Request, response: Response, next: () => void) {
         const req: MyRequest = request as any;

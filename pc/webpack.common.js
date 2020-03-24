@@ -1,16 +1,16 @@
 const path = require('path');
 const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const publicPath = process.env.PUBLIC_PATH || 'http://dev.golang123.com/';
+const publicPath = process.env.PUBLIC_PATH || 'http://localhost:9906/';
 
 function getEntries(entryPath, entryObj) {
-	const files = fs.readdirSync(entryPath);
-	files.forEach(function(filePath) {
+    const files = fs.readdirSync(entryPath);
+    files.forEach(function (filePath) {
         const fullpath = `${entryPath}/${filePath}`;
         const info = fs.statSync(fullpath);
-		if (info.isDirectory()) {
-			getEntries(fullpath, entryObj);
-		} else {
+        if (info.isDirectory()) {
+            getEntries(fullpath, entryObj);
+        } else {
             if (fullpath && fullpath.indexOf('.DS_Store') >= 0) {
                 return;
             }
@@ -114,29 +114,25 @@ module.exports = {
             },
             {
                 test: /\.(jpe?g|png|gif|svg)(\?.*)?$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 8192,
-                            name: '[name].[hash:16].[ext]',
-                            outputPath: 'images/'
-                        }
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 8192,
+                        name: '[name].[hash:16].[ext]',
+                        outputPath: 'images/'
                     }
-                ]
+                }]
             },
             {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 8192,
-                            name: '[name].[hash:16].[ext]',
-                            outputPath: 'fonts/'
-                        }
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 8192,
+                        name: '[name].[hash:16].[ext]',
+                        outputPath: 'fonts/'
                     }
-                ]
+                }]
             }
         ]
     },
@@ -169,8 +165,6 @@ module.exports = {
         },
         extensions: ['.js', '.vue', '.css', '.scss']
     },
-    externals: {
-    },
-    plugins: [
-    ],
+    externals: {},
+    plugins: [],
 };

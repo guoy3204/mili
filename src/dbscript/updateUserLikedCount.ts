@@ -1,12 +1,12 @@
 import { parseCountResult } from '../utils/query';
 
-export const updateUserArticleCount = async (connection) => {
+export const updateUserLikedCountRun = async (connection) => {
     try {
         const users = await connection.manager.query(`SELECT id FROM users`);
         // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < users.length; i++) {
             const user = users[i];
-            let [ likedCount1, likedCount2, likedCount3, likedCount4 ]  = await Promise.all([
+            let [likedCount1, likedCount2, likedCount3, likedCount4] = await Promise.all([
 
                 connection.manager.query(`SELECT SUM(liked_count) as liked_count FROM articles WHERE user_id = ?
                     AND deleted_at IS NULL`, [user.id]),

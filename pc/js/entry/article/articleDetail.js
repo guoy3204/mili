@@ -38,14 +38,16 @@ registerDirective(Vue);
                     userID: authorID,
                     followed: window.userFollowed,
                 },
-                style: { float: 'right' }
+                style: {
+                    float: 'right'
+                }
             }),
         }).$mount('#followUserBigBtn');
     }
 }());
 
 // 评论列表
-(function() {
+(function () {
     new Vue({
         render: h => h(CommentList, {
             props: {
@@ -60,7 +62,7 @@ registerDirective(Vue);
 }());
 
 // 左侧边栏分享
-(function() {
+(function () {
     new Vue({
         render: h => h(ArticleSocial, {
             props: {
@@ -69,4 +71,3 @@ registerDirective(Vue);
         }),
     }).$mount('#articleSuspendedPanel');
 }());
-

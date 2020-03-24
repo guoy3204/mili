@@ -10,7 +10,7 @@ let errCount = 0;
 const summaryLenth = 500;
 const summaryStripLenth = 100;
 
-export const mdToHTML = async function (connection) {
+export const mdToHTMLRun = async function (connection) {
     const articleRepository = connection.getRepository(Article);
 
     try {

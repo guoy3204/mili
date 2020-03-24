@@ -1,11 +1,3 @@
-mili   
-=
-
-**mili**是一个开源的社区系统，界面优雅，功能丰富。
-已在[米粒网](https://www.golang123.com) 得到应用，你完全可以用它来搭建自己的社区。**mili**的前端使用**vue**、**iview**等技术来开发，后端使用**typescript**、**nodejs**、**nestjs**、**typeorm**等技术来开发。 
-
-## 🎆 系统截图
-<img src="https://img.golang123.com/upload/img/2020/2/1581129636269.gif?v=1" width="1000" alt=""/>
 
 ## 👉 依赖的软件
 | 软件 | 版本|  
@@ -17,7 +9,7 @@ mili
 
 ## ⚙️ 配置
 ### 配置hosts
-127.0.0.1 local.nodejs123.com  
+127.0.0.1 local.cms.com  
 
 ### 配置nginx 
 请参考如下配置, 请修改日志目录
@@ -33,10 +25,10 @@ upstream nodejsStatic {
 
 server {
     listen       80;
-    server_name dev.golang123.com;
+    server_name dev.cms.com;
 
-    access_log /your/path/logs/golang123.access.log;
-    error_log /your/path/logs/golang123.error.log;
+    access_log /your/path/logs/cms.access.log;
+    error_log /your/path/logs/cms.error.log;
 
     location /js  {
         proxy_pass  http://nodejsStatic;
@@ -112,7 +104,7 @@ export default {
     redis: {
         host: '127.0.0.1',
         port: 6379,
-        keyPrefix: 'mili:',
+        keyPrefix: 'cms:',
         family: 4, // 4 (IPv4) or 6 (IPv6)
         password: '',
         db: 0,
@@ -175,14 +167,11 @@ npm start
 按快捷键`F5`来运行项目
 
 ### 本地访问
-首页: http://local.nodejs123.com    
-管理后台: http://local.nodejs123.com/admin/  
-用户名: mili  
+首页: http://local.cmd.com    
+管理后台: http://local.cmd.com/admin/  
+用户名: admin  
 密码: 123456
 
 ### 线上体验
-https://www.nodejs123.com    
-
-## License
-[GPL](https://github.com/shen100/golang123-api/blob/master/LICENSE "")      
-Mili is GPL licensed.
+ 
+ 

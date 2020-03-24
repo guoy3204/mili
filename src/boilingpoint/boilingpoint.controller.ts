@@ -30,15 +30,15 @@ export class BoilingPointController {
         private readonly userService: UserService,
         private readonly ossService: OSSService,
         private readonly redisService: RedisService,
-    ) {}
+    ) { }
 
     /**
      * 话题下的沸点页面
      */
     @Get('/boilings/topic/:topicID')
     async boilingView(@Param('topicID', MustIntPipe) topicID: number, @Res() res) {
-        const [ uploadPolicy, topics, globalRecommends ] = await Promise.all([
-            this.ossService.requestPolicy(),
+        const [uploadPolicy, topics, globalRecommends] = await Promise.all([
+            this.ossService.requestPolicy(res.locals.globalConfig.csrfToken),
             this.topicService.list(),
             this.boilingPointService.globalRecommends(),
         ]);
@@ -98,11 +98,11 @@ export class BoilingPointController {
                     company: true,
                 },
             }),
-            user ? this.boilingPointService.filterUserLikeBoilingPointIDs([ boilingPoint.id ], user.id) : Promise.resolve([]),
+            user ? this.boilingPointService.filterUserLikeBoilingPointIDs([boilingPoint.id], user.id) : Promise.resolve([]),
             imgIDArr.length ? this.ossService.findImages(imgIDArr) : Promise.resolve([]),
             this.boilingPointService.globalRecommends(),
             (user ? this.userService.usersFilterByFollowerID([boilingPoint.userID], user.id) : Promise.resolve([])),
-            this.ossService.requestPolicy(),
+            this.ossService.requestPolicy(res.locals.globalConfig.csrfToken),
         ]);
         boilingPointData.user = author;
         boilingPointData.userLiked = !!(likes && likes.length);
@@ -134,8 +134,8 @@ export class BoilingPointController {
                 errorCode: ErrorCode.NotFound.CODE,
             });
         }
-        const [ uploadPolicy, topics, globalRecommends ] = await Promise.all([
-            this.ossService.requestPolicy(),
+        const [uploadPolicy, topics, globalRecommends] = await Promise.all([
+            this.ossService.requestPolicy(res.locals.globalConfig.csrfToken),
             this.topicService.list(),
             this.boilingPointService.globalRecommends(),
         ]);
@@ -271,7 +271,7 @@ export class BoilingPointController {
     @Post(`${APIPrefix}/boilingpoints`)
     @UseGuards(ActiveGuard)
     async create(@CurUser() user, @Body() editBoilingPointDto: EditBoilingPointDto) {
-        const [ insertId ] = await Promise.all([
+        const [insertId] = await Promise.all([
             this.boilingPointService.create(editBoilingPointDto, user.id),
             this.redisService.delCache(util.format(this.redisService.cacheKeys.user, user.id)),
         ]);
@@ -317,7 +317,7 @@ export class BoilingPointController {
         }
         const boilingPoint = await this.boilingPointService.findOne({
             where: { id },
-            select: [ 'id' ],
+            select: ['id'],
         });
         if (!boilingPoint) {
             throw new MyHttpException({

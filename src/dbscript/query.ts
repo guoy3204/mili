@@ -14,7 +14,7 @@ async function addPublisher(connection, likeTable, sourceTable, sourceIDName) {
     }
 }
 
-export const query = async (connection) => {
+export const queryRun = async (connection) => {
     try {
         await addPublisher(connection, 'like_article_comments', 'article_comments', 'comment_id');
         await addPublisher(connection, 'like_boiling_comments', 'boilingpoint_comments', 'comment_id');

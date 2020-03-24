@@ -29,7 +29,7 @@ export class HandBookController {
         private readonly configService: ConfigService,
         private readonly handBookService: HandBookService,
         private readonly ossService: OSSService,
-    ) {}
+    ) { }
 
     @Get('/handbooks')
     async listView(@CurUser() user, @Res() res) {
@@ -69,7 +69,7 @@ export class HandBookController {
     @UseGuards(ActiveGuard, RolesGuard)
     @Roles(UserRole.Admin)
     async createView(@Res() res) {
-        const uploadPolicy = await this.ossService.requestPolicy();
+        const uploadPolicy = await this.ossService.requestPolicy(res.locals.globalConfig.csrfToken);
         res.render('pages/handbook/editHandbook', {
             siteName: this.configService.server.siteName,
             companyName: this.configService.server.companyName,
@@ -96,7 +96,7 @@ export class HandBookController {
     @UseGuards(ActiveGuard, RolesGuard)
     @Roles(UserRole.Admin)
     async editView(@Param('handbookID', MustIntPipe) handbookID: number, @Param('chapterID') chapterID: string, @Res() res) {
-        const uploadPolicy = await this.ossService.requestPolicy();
+        const uploadPolicy = await this.ossService.requestPolicy(res.locals.globalConfig.csrfToken);
         res.render('pages/handbook/editHandbook', {
             siteName: this.configService.server.siteName,
             companyName: this.configService.server.companyName,

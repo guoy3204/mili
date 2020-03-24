@@ -7,7 +7,7 @@ import DBConfig from './type/DBConfig';
 import StatsDConfig from './type/StatsDConfig';
 import { ServerConfig } from './type/ServerConfig';
 import StaticConfig from './type/StaticConfig';
-import AliyunOSSConfig from './type/AliyunOSSConfig';
+import OSSConfig from './type/OSSConfig';
 import AliyunSMSConfig from './type/AliyunSMSConfig';
 import GeetestCaptcha from './type/GeetestCaptcha';
 import WeiboConfig from './type/WeiboConfig';
@@ -25,7 +25,7 @@ export class ConfigService {
     readonly statsD: StatsDConfig;
     readonly server: ServerConfig;
     readonly static: StaticConfig;
-    readonly aliyunOSS: AliyunOSSConfig;
+    readonly OSS: OSSConfig;
     readonly aliyunSMS: AliyunSMSConfig;
     readonly geetestCaptcha: GeetestCaptcha;
     readonly github: GithubConfig;
@@ -51,7 +51,7 @@ export class ConfigService {
         this.statsD = new StatsDConfig(defaultJSON.statsD);
         this.server = new ServerConfig(defaultJSON.server);
         this.static = new StaticConfig(defaultJSON.static);
-        this.aliyunOSS = new AliyunOSSConfig(defaultJSON.aliyunOSS);
+        this.OSS = new OSSConfig(defaultJSON.OSS);
         this.aliyunSMS = new AliyunSMSConfig(defaultJSON.aliyunSMS);
         this.geetestCaptcha = new GeetestCaptcha(defaultJSON.geetestCaptcha);
         this.github = new GithubConfig(defaultJSON.github);

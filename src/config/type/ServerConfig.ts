@@ -19,7 +19,7 @@ export class ServerConfig extends BaseConfig {
     readonly rateLimitWindowMs: number; // 时间窗口，单位毫秒
     readonly rateLimitMax: number; // limit each IP to rateLimitMax requests per windowMs
     readonly swaggerPrefix: string;
-    readonly xiaoceEmail: string;
+    readonly postEmail: string;
 
     constructor(cfg) {
         super(cfg);

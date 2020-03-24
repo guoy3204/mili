@@ -85,7 +85,7 @@ export class UpdateUserInfoDto {
         message: '个人主页不能超过 $constraint1 个字符',
     })
     @IsUrl({
-        protocols: ['https'],
+        protocols: ['https', 'http'],
         require_protocol: true,
     })
     readonly personalHomePage: string;
@@ -94,8 +94,8 @@ export class UpdateUserInfoDto {
         return obj && typeof obj.avatarURL !== 'undefined';
     })
     @IsUrl({
-        protocols: ['https'],
-        require_protocol: true,
+        protocols: ['https', 'http'],
+        require_protocol: true
     })
     readonly avatarURL: string;
 }

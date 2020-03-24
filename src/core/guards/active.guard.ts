@@ -8,7 +8,7 @@ import { MyHttpException } from '../exception/my-http.exception';
 export class ActiveGuard implements CanActivate {
     constructor(
         private readonly configService: ConfigService,
-    ) {}
+    ) { }
 
     canActivate(context: ExecutionContext): boolean {
         const request = context.switchToHttp().getRequest();

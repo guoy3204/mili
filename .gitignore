@@ -17,6 +17,7 @@ npm-debug.log*
 /.nyc_output
 
 dist
+data
 package-lock.json
 
 ossconfig

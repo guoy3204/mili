@@ -1,4 +1,6 @@
 import * as url from 'url';
+import * as fs from "fs";
+import * as path from 'path';
 
 export const strToPage = (pageStr: string) => {
     let page: number = parseInt(pageStr, 10);
@@ -41,3 +43,12 @@ export const getContentTypeFromHeaders = (headers): string => {
     }
     return '';
 };
+
+export function createDir(dirPath: string) {
+    let parentPath = path.dirname(dirPath);
+    if (!fs.existsSync(parentPath)) {
+        createDir(parentPath);
+    }
+    fs.mkdirSync(dirPath);
+    return true;
+}

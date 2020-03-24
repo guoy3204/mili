@@ -1,21 +1,22 @@
 import * as path from 'path';
 
-const domain = 'dev.golang123.com';
+const domain = 'local.cms.com';
 const port = 9905;
-const url = `http://${domain}`;
-const mDomain = 'm-dev.golang123.com';
+const url = `http://${domain}:${port}`;
+
+const mDomain = 'm-dev.cms.com';
 const mURL = `http://${mDomain}`;
 
-const staticURL = `http://${domain}`;
+const staticURL = `http://localhost:9906`;
 
 export default {
     db: {
         type: 'mysql',
         host: 'localhost',
-        port: 3306,
+        port: 8889,
         charset: 'utf8mb4',
-        username: '',
-        password: '',
+        username: 'root',
+        password: 'root',
         database: 'mili',
         synchronize: false,
         entities: [path.join(__dirname, '../entity/**/*.entity{.ts,.js}')],
@@ -37,11 +38,11 @@ export default {
         jsPath: `${staticURL}/js`,
         imgPath: `${staticURL}/images`,
         fontPath: `${staticURL}/fonts`,
-        uploadImgURL: '',
+        uploadImgURL: ``,
         imgFormat: ['jpg', 'jpeg', 'png'],
         imgMaxSize: 3 * 1024 * 1024,
         imgMaxSizeError: '图片大小不能超过%sM',
-        userLevelChapterURL: 'https://www.golang123.com/books/90/chapters/1515', // 用户等级在《如何使用米粒社区》中的章节url
+        userLevelChapterURL: 'https://www.cms.com/books/90/chapters/1515', // 用户等级在《如何使用米粒社区》中的章节url
     },
     statsD: {
         host: 'localhost',
@@ -50,8 +51,8 @@ export default {
         protocol: 'udp',
     },
     server: {
-        siteName: '米粒',
-        companyName: '北京xxxxxxx有限公司',
+        siteName: '点点小说',
+        companyName: '点点科技有限公司',
         icp: '京ICP备12345678号',
         url,
         mURL,
@@ -68,20 +69,24 @@ export default {
         rateLimitWindowMs: 15 * 60 * 1000, // 时间窗口，单位毫秒
         rateLimitMax: 1000, // limit each IP to rateLimitMax requests per windowMs
         swaggerPrefix: 'api/v1',
-        xiaoceEmail: 'xiaoce@abc.com',
+        postEmail: 'xiaoce@abc.com',
     },
-    aliyunOSS: {
-        accessKeyID: '',
-        accessKeySecret: '',
-        bucket: '',
-        region: '',
-        uploadActionURL: '',
+    OSS: {
+        type: "fs",
         uploadPrefix: 'local', // 上传路径加个前缀
         uploadFieldName: 'file',
-        expiration: 6, // 上传凭证过期时间, 单位小时
-        imgMaxSize: 3 * 1024 * 1024, // 设置上传图片的大小限制, 单位M
-        imgMaxSizeError: '图片大小要小于%sM', // 图片大小超过限制时的提示
+        expiration: 6, // 上传凭证过期时间, 单位小时 
         callbackSecretToken: '123456789', // 用来验证是否是阿里云发过来的回调
+
+        imgMaxSize: 3 * 1024 * 1024, // 设置上传图片的大小限制, 单位M
+        imgMaxSizeError: '图片大小要小于%sM', // 图片大小超过限制时的提示 
+        aliyun: {
+            accessKeyID: '',
+            accessKeySecret: '',
+            bucket: '',
+            region: '',
+            uploadActionURL: '',
+        }
     },
     aliyunSMS: {
         accessKeyID: '',

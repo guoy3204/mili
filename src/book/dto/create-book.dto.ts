@@ -29,7 +29,7 @@ export class CreateBookDto {
     readonly contentType: number;
 
     @IsUrl({
-        protocols: ['https'],
+        protocols: ['https', 'http'],
         require_protocol: true,
     }, {
         message: '封面图片不能为空',

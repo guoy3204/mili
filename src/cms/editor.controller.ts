@@ -32,12 +32,12 @@ export class EditorController {
         private readonly draftService: DraftService,
         private readonly ossService: OSSService,
         private readonly collectionService: CollectionService,
-    ) {}
+    ) { }
 
     @Get('/editor/markdown')
     @UseGuards(ActiveGuard)
     async markdown(@Res() res) {
-        const uploadPolicy = await this.ossService.requestPolicy();
+        const uploadPolicy = await this.ossService.requestPolicy(res.locals.globalConfig.csrfToken);
         res.render('pages/editor/editor.md.njk', { uploadPolicy });
     }
 
@@ -52,7 +52,7 @@ export class EditorController {
     async createDraftView(@CurUser() user, @Res() res) {
         const [settings, uploadPolicy] = await Promise.all([
             this.userService.findSettings(user.id),
-            this.ossService.requestPolicy(),
+            this.ossService.requestPolicy(res.locals.globalConfig.csrfToken),
         ]);
         if (!settings || settings.editorType === ArticleContentType.Markdown) {
             res.render('pages/editor/editMarkdownArticle', {
@@ -72,7 +72,7 @@ export class EditorController {
     async editDraftView(@Param('id', MustIntPipe) id: number, @CurUser() user, @Res() res) {
         const [draft, uploadPolicy] = await Promise.all([
             this.draftService.detail(id),
-            this.ossService.requestPolicy(),
+            this.ossService.requestPolicy(res.locals.globalConfig.csrfToken),
         ]);
         if (!draft) {
             throw new MyHttpException({
@@ -104,7 +104,7 @@ export class EditorController {
     async editPostView(@Param('id', MustIntPipe) id: number, @CurUser() user, @Res() res) {
         const [article, uploadPolicy] = await Promise.all([
             this.articleService.detailForEditor(id),
-            this.ossService.requestPolicy(),
+            this.ossService.requestPolicy(res.locals.globalConfig.csrfToken),
         ]);
         if (user.id !== article.userID) {
             throw new MyHttpException({

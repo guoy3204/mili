@@ -12,7 +12,7 @@ export const replaceIgnoreCase = (str, substr, replacement) => {
     return str.replace(substr, replacement);
 };
 
-export const ossResponseParse = (res, uploadImgURL) => {
+export const aliyunOssResponseParse = (res, uploadImgURL) => {
     let xmlDOM = (new DOMParser()).parseFromString(res, 'text/xml');
     let PostResponseArr = xmlDOM.getElementsByTagName('PostResponse');
     if (PostResponseArr && PostResponseArr.length) {

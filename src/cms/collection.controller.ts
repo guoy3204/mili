@@ -27,7 +27,7 @@ export class CollectionController {
         private readonly configService: ConfigService,
         private readonly ossService: OSSService,
         private readonly collectionService: CollectionService,
-    ) {}
+    ) { }
 
     @Get('/collections/:id.html')
     async detail(@Param('id', MustIntPipe) id: number, @CurUser() user, @Res() res) {
@@ -72,7 +72,7 @@ export class CollectionController {
     @Get('/collections/new')
     @UseGuards(ActiveGuard)
     async createView(@Res() res) {
-        const uploadPolicy = await this.ossService.requestPolicy();
+        const uploadPolicy = await this.ossService.requestPolicy(res.locals.globalConfig.csrfToken);
         res.render('pages/collection/edit', {
             uploadPolicy,
             collection: {},
@@ -84,7 +84,7 @@ export class CollectionController {
     async editView(@CurUser() user, @Param('id', MustIntPipe) id: number, @Res() res) {
         const [collection, uploadPolicy] = await bluebird.all([
             this.collectionService.findById(id),
-            this.ossService.requestPolicy(),
+            this.ossService.requestPolicy(res.locals.globalConfig.csrfToken),
         ]);
         if (!collection) {
             throw new MyHttpException({
@@ -119,7 +119,7 @@ export class CollectionController {
     @Put('/api/v1/collections/:id')
     @UseGuards(ActiveGuard)
     async update(@CurUser() user, @Param('id', MustIntPipe) id: number,
-                 @Body() createCollectionDto: CreateCollectionDto) {
+        @Body() createCollectionDto: CreateCollectionDto) {
         return await this.collectionService.updateOne(createCollectionDto, id, user.id);
     }
 
@@ -127,7 +127,7 @@ export class CollectionController {
     @Post('/api/v1/collections/:collectionID/articles/:articleID')
     @UseGuards(ActiveGuard)
     async addArticle(@CurUser() user, @Param('collectionID', MustIntPipe) collectionID: number,
-                     @Param('articleID', MustIntPipe) articleID: number) {
+        @Param('articleID', MustIntPipe) articleID: number) {
         const [collection, article] = await Promise.all([
             this.collectionService.findById(collectionID),
             this.articleService.detail(articleID),
@@ -164,7 +164,7 @@ export class CollectionController {
     @Delete('/api/v1/collections/:collectionID/articles/:articleID')
     @UseGuards(ActiveGuard)
     async removeArticle(@CurUser() user, @Param('collectionID', MustIntPipe) collectionID: number,
-                        @Param('articleID', MustIntPipe) articleID: number) {
+        @Param('articleID', MustIntPipe) articleID: number) {
         const [collection, article] = await Promise.all([
             this.collectionService.findById(collectionID),
             this.articleService.detail(articleID),
@@ -192,9 +192,9 @@ export class CollectionController {
     @Put('/api/v1/collections/:collectionID/articles/:articleID/:messageID/:status')
     @UseGuards(ActiveGuard)
     async receiveArticle(@CurUser() user, @Param('collectionID', MustIntPipe) collectionID: number,
-                         @Param('articleID', MustIntPipe) articleID: number,
-                         @Param('messageID', MustIntPipe) messageID: number,
-                         @Param('status', MustIntPipe) status: number) {
+        @Param('articleID', MustIntPipe) articleID: number,
+        @Param('messageID', MustIntPipe) messageID: number,
+        @Param('status', MustIntPipe) status: number) {
         // todo: 是管理员才允许接受投稿
         await this.collectionService.receiveArticle(collectionID, articleID, messageID, status);
         return {
@@ -205,9 +205,9 @@ export class CollectionController {
     @Get('/api/v1/collections/:id/myarticles')
     @UseGuards(ActiveGuard)
     async myArticles(@CurUser() user, @Param('id', MustIntPipe) id: number, @Query('page', ParsePagePipe) page: number,
-                     @Query('q') keyword: string) {
+        @Query('q') keyword: string) {
         const pageSize: number = 20;
-        let  articles: Article[];
+        let articles: Article[];
         keyword = _.trim(keyword || '');
         keyword = decodeURIComponent(keyword);
         if (keyword) {

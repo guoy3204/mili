@@ -1,6 +1,19 @@
 import { createConnection } from 'typeorm';
 import { ConfigService } from '../config/config.service';
 import { MyLoggerService } from '../common/logger.service';
+import { tablesRun } from './tables';
+import { addColumn } from './addColumn';
+import { commentRun } from './comment';
+import { commentRoot } from './commentRoot';
+import { mdToHTMLRun } from './mdToHTML';
+import { queryRun } from './query';
+import { renameTableRun } from './renameTable';
+import { userRun } from './user';
+import { chapterMDToHTMLRun } from './s_book_chapters';
+import { updateRootCommentCountRun as updateRootCommentCountRun } from './updateRootCommentCount';
+import { updateUserArticleCountRun } from './updateUserArticleCount';
+import { updateUserArticleViewCountRun } from './updateUserArticleViewCount';
+import { updateUserLikedCountRun } from './updateUserLikedCount';
 
 const config = new ConfigService();
 const logger = new MyLoggerService();
@@ -15,7 +28,7 @@ async function insertAdmin(connection) {
         VALUES
             (44, '2017-08-20 16:01:08', '2019-09-04 00:11:40', NULL, '2017-08-20 16:01:08', 'shen100',
             'liushen_shen@163.com', '', '150321606850159a1dc80fffd0ee9b9674c721aa77', 61, 4,
-            '', 3, 2, 'http://dev.golang123.com/images/test/admin.png',
+            '', 3, 2, 'http://www.cms.com/images/test/admin.png',
             '', 89, 0, '', 0, 0, 58984, 2, 10, 1, 0, 0, 10, 0, 0, 0,
             '站长', '米粒', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)`;
     return await connection.manager.query(sql);
@@ -31,7 +44,7 @@ async function insertCrawler(connection) {
         VALUES
             (84, '2017-11-06 23:20:00', '2019-07-06 17:23:56', NULL, '2017-11-06 23:20:00', '超级苦工',
             '', '', '150321606850159a1dc80fffd0ee9b9674c721aa77', 1771, 0, '请叫我超级苦工~', 5, 2,
-            'http://dev.golang123.com/images/test/crawler.png', NULL, 0, 0,
+            'http://dev.cms.com/images/test/crawler.png', NULL, 0, 0,
             NULL, 0, 0, 317486, 1, 0, 5, 0, 0, 6, 0, 0, 0, NULL, NULL, NULL, NULL, NULL,
             NULL, NULL, NULL, NULL, NULL, NULL)`;
     return await connection.manager.query(sql);
@@ -39,8 +52,23 @@ async function insertCrawler(connection) {
 
 (async function run() {
     const connection = await createConnection(config.db);
-    await insertAdmin(connection);
-    await insertCrawler(connection);
+    // await tablesRun(connection)
+    // await insertAdmin(connection);
+    // await insertCrawler(connection);
+    // await addColumn(connection);
+    // await commentRun(connection);
+    // await commentRoot(connection);
+    // await mdToHTMLRun(connection);
+
+    await queryRun(connection);
+    // await renameTableRun(connection);
+    // await chapterMDToHTMLRun(connection);
+    // await updateRootCommentCountRun(connection);
+    // await updateUserArticleCountRun(connection);
+    // await updateUserArticleViewCountRun(connection);
+    // await updateUserLikedCountRun(connection);
+    // await updateUserLikedCountRun(connection);
+    // await userRun(connection, config);
 
     logger.info({ message: 'init db done' });
 

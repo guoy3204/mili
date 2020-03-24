@@ -22,7 +22,7 @@ export const commentRun = async function (connection) {
             PRIMARY KEY (comment_id, user_id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`);
 
-        await connection.manager.query(`rename table comments to article_comments`);
+        // await connection.manager.query(`rename table comments to article_comments`);
         await connection.manager.query(`alter table article_comments add column root_id int(11) NOT NULL DEFAULT '0'`);
 
         await connection.manager.query(`CREATE TABLE vote_comments (

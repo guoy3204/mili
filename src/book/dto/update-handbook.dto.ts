@@ -53,7 +53,7 @@ export class UpdateHandBookDto {
 
     @ValidateIf(o => o.coverURL !== '')
     @IsUrl({
-        protocols: ['https'],
+        protocols: ['https', 'http'],
         require_protocol: true,
     })
     readonly coverURL: string;

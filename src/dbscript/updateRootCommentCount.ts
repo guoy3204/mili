@@ -1,7 +1,7 @@
 import { createConnection } from 'typeorm';
 import { ConfigService } from '../config/config.service';
 
-export const updateRootCommentCount = async function (connection) {
+export const updateRootCommentCountRun = async function (connection) {
     try {
         const ids = await connection.manager.query(`select id from articles`);
         let sql = 'UPDATE articles SET root_comment_count = CASE id ';

@@ -9,7 +9,7 @@ let errCount = 0;
 const summaryLenth = 500;
 const summaryStripLenth = 100;
 
-export const chapterMDToHTML = async function (connection) {
+export const chapterMDToHTMLRun = async function (connection) {
 
     try {
         await connection.manager.query(`alter table books drop column status`);
@@ -46,7 +46,7 @@ export const chapterMDToHTML = async function (connection) {
 
             await connection.manager.query(`update book_chapters set html_content = ?, word_count = ?
                     where id = ${chapter.id}`, [
-                        updateData.html_content, updateData.word_count]);
+                updateData.html_content, updateData.word_count]);
         });
 
 

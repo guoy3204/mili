@@ -19,8 +19,48 @@ export class RedisService {
     readonly client: Redis.Redis;
     readonly cacheKeys: CacheKeys;
 
+    decodeUrl(url: string): Redis.RedisOptions {
+        // let url = "redis://:DMb03mNHf3QAbJs4dPNOU21Qi46@121.201.122.224:6381/12" || redis://:DMb03mNHf3QAbJs4dPNOU21Qi46@192.168.1.9:28017,192.168.1.9:29017,192.168.1.9:30017/12
+        let opt: Redis.RedisOptions = {}
+        if (url.indexOf("://:") === -1 || url.indexOf("@") === -1) {
+            console.warn("redis decodeUrl fail,please check dbLog.json")
+            return
+        }
+        let newUrl = url.split("://:")[1]
+        if (newUrl.indexOf("/") === -1) {
+            console.warn("redis decodeUrl fail,please check dbLog.json,url is not '/'")
+            return
+        }
+        let pwdAndUrls = newUrl.split("@")
+        opt.password = pwdAndUrls[0]
+        let dbs = pwdAndUrls[1].split("/")
+        opt.db = +dbs[1]
+        if (dbs[0].indexOf(",") > 0) {
+            let ips = dbs[0].split(",")
+            opt.sentinels = []
+            for (let ip of ips) {
+                if (ip.indexOf(":") === -1) {
+                    console.warn("redis decodeUrl fail,please check dbLog.json,ip is not ':'")
+                    return
+                }
+                let value = ip.split(":")
+                opt.sentinels.push({ host: value[0], port: +value[1] })
+            }
+            opt.name = 'mymaster'
+        } else {
+            if (dbs[0].indexOf(":") === -1) {
+                console.warn("redis decodeUrl fail,please check dbLog.json,ip is not ':'")
+                return
+            }
+            let uri = dbs[0].split(":")
+            opt.host = uri[0]
+            opt.port = +uri[1]
+        }
+        return opt
+    }
     constructor(private readonly configService: ConfigService) {
-        this.client = new Redis(this.configService.redis);
+        // this.client = new Redis(this.configService.redis);
+        this.client = new Redis(this.decodeUrl("redis://:DMb03mNHf3QAbJs4dPNOU21Qi46@redis.zk2x.com:27380,redis.zk2x.com:27381,redis.zk2x.com:27382/15"))
         this.cacheKeys = new CacheKeys();
     }
 

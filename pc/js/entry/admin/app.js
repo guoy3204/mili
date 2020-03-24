@@ -3,8 +3,12 @@ import '~/styles/admin.scss';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from '~/js/pages/admin/layout.vue';
-import { ErrorCode } from '~/js/constants/error.js';
-import { myHTTP } from '~/js/common/net.js';
+import {
+    ErrorCode
+} from '~/js/constants/error.js';
+import {
+    myHTTP
+} from '~/js/common/net.js';
 
 import {
     Avatar,
@@ -89,20 +93,74 @@ Vue.use(VueRouter);
 
 const adminPageURL = window.adminPageURL;
 
-const routes = [
-    { path: `/`, component: () => import('~/js/pages/admin/index.vue') },
-    { path: `/article/category`, component: () => import('~/js/pages/admin/article/CategoryList.vue') },
-    { path: `/article/crawler/list`, component: () => import('~/js/pages/admin/article/CrawlerList.vue') },
-    { path: `/article/crawler`, component: () => import('~/js/pages/admin/article/Crawler.vue') },
-    { path: `/article/tag`, component: () => import('~/js/pages/admin/article/TagList.vue') },
-    { path: `/book/category`, component: () => import('~/js/pages/admin/book/BookCategoryList.vue') },
-    { path: `/book/list`, component: () => import('~/js/pages/admin/book/BookList.vue') },
-    { path: `/book/:id/edit`, component: () => import('~/js/pages/admin/book/EditBook.vue') },
-    { path: `/boilingpoint/topic`, component: () => import('~/js/pages/admin/boilingpoint/Topic.vue') },
-    { path: `/exercise/question/list`, component: () => import('~/js/pages/admin/exercise/QuestionList.vue') },
-    { path: `/exercise/question/new`, component: () => import('~/js/pages/admin/exercise/EditQuestion.vue') },
-    { path: `/exercise/question/:id/edit`, component: () => import('~/js/pages/admin/exercise/EditQuestion.vue') },
-    { path: `/*`, component: () => import('~/js/pages/admin/404.vue') }
+const routes = [{
+        path: `/`,
+        component: () => import('~/js/pages/admin/index.vue')
+    },
+    {
+        path: `/article/category`,
+        component: () => import('~/js/pages/admin/article/CategoryList.vue')
+    },
+    {
+        path: `/article/list`,
+        component: () => import('~/js/pages/admin/article/List.vue')
+    },
+    {
+        path: `/article/crawler/list`,
+        component: () => import('~/js/pages/admin/article/CrawlerList.vue')
+    },
+    {
+        path: `/article/crawler`,
+        component: () => import('~/js/pages/admin/article/Crawler.vue')
+    },
+    {
+        path: `/article/tag`,
+        component: () => import('~/js/pages/admin/article/TagList.vue')
+    },
+    {
+        path: `/book/category`,
+        component: () => import('~/js/pages/admin/book/BookCategoryList.vue')
+    },
+    {
+        path: `/book/list`,
+        component: () => import('~/js/pages/admin/book/BookList.vue')
+    },
+    {
+        path: `/book/:id/edit`,
+        component: () => import('~/js/pages/admin/book/EditBook.vue')
+    },
+    {
+        path: `/boilingpoint/list`,
+        component: () => import('~/js/pages/admin/boilingpoint/List.vue')
+    },
+    {
+        path: `/boilingpoint/topic`,
+        component: () => import('~/js/pages/admin/boilingpoint/Topic.vue')
+    },
+    {
+        path: `/handbook/list`,
+        component: () => import('~/js/pages/admin/handbook/List.vue')
+    },
+    {
+        path: `/handbook/category`,
+        component: () => import('~/js/pages/admin/handbook/Category.vue')
+    },
+    {
+        path: `/exercise/question/list`,
+        component: () => import('~/js/pages/admin/exercise/QuestionList.vue')
+    },
+    {
+        path: `/exercise/question/new`,
+        component: () => import('~/js/pages/admin/exercise/EditQuestion.vue')
+    },
+    {
+        path: `/exercise/question/:id/edit`,
+        component: () => import('~/js/pages/admin/exercise/EditQuestion.vue')
+    },
+    {
+        path: `/*`,
+        component: () => import('~/js/pages/admin/404.vue')
+    }
 ];
 
 routes.forEach(r => r.path = adminPageURL + r.path);
@@ -110,11 +168,14 @@ routes.forEach(r => r.path = adminPageURL + r.path);
 const router = new VueRouter({
     routes,
     mode: 'history',
-    scrollBehavior (to, from, savedPosition) {
+    scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
             return savedPosition;
         } else {
-            return { x: 0, y: 0 };
+            return {
+                x: 0,
+                y: 0
+            };
         }
     }
 });

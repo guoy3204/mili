@@ -28,7 +28,7 @@ class CategoryDto {
 export class CustomCategory implements ValidatorConstraintInterface {
 
     validate(categories: CategoryDto[], args: ValidationArguments) {
-        if (categories === null || categories === undefined ) {
+        if (categories === null || categories === undefined) {
             return true;
         }
         if (categories.constructor !== Array) {
@@ -62,7 +62,7 @@ class TagDto {
 export class CustomTag implements ValidatorConstraintInterface {
 
     validate(tags: TagDto[], args: ValidationArguments) {
-        if (tags === null || tags === undefined ) {
+        if (tags === null || tags === undefined) {
             return true;
         }
         if (tags.constructor !== Array) {
@@ -103,7 +103,7 @@ export class CreateDraftDto {
         return obj && typeof obj.coverURL !== 'undefined';
     })
     @IsUrl({
-        protocols: ['https'],
+        protocols: ['https', 'http'],
         require_protocol: true,
     })
     readonly coverURL: string;

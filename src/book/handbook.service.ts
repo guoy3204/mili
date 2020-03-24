@@ -29,7 +29,7 @@ const defaultIntroduce = `## 作者介绍
 4. 购买用户可进入小册微信群，与作者互动；
 5. {{siteName}}小册为虚拟内容服务，一经购买成功概不退款；
 6. {{siteName}}小册版权归{{companyName}}所有，任何机构、媒体、网站或个人未经本网协议授权不得转载、链接、转贴或以其他方式复制发布/发表，违者将依法追究责任；
-7. 在{{siteName}}小册阅读过程中，如有任何问题，请邮件联系{{xiaoceEmail}}
+7. 在{{siteName}}小册阅读过程中，如有任何问题，请邮件联系{{postEmail}}
 `;
 
 @Injectable()
@@ -40,12 +40,12 @@ export class HandBookService {
         @InjectRepository(HandBookChapter)
         private readonly handBookChapterRepository: Repository<HandBookChapter>,
         private readonly configService: ConfigService,
-    ) {}
+    ) { }
 
     async create(userID: number, dto: CreateHandBookDto) {
         let introduce = defaultIntroduce;
-        let regExp = new RegExp('{{xiaoceEmail}}', 'g');
-        introduce = introduce.replace(regExp, this.configService.server.xiaoceEmail);
+        let regExp = new RegExp('{{postEmail}}', 'g');
+        introduce = introduce.replace(regExp, this.configService.server.postEmail);
         regExp = new RegExp('{{siteName}}', 'g');
         introduce = introduce.replace(regExp, this.configService.server.siteName);
         regExp = new RegExp('{{companyName}}', 'g');
@@ -126,7 +126,7 @@ export class HandBookService {
      * 撰写的小册
      */
     async getMyHandBooks(userID: number, page: number, pageSize: number): Promise<ListResult<HandBook>> {
-        const [ list, count ] = await this.handBookRepository.findAndCount({
+        const [list, count] = await this.handBookRepository.findAndCount({
             select: {
                 id: true,
                 name: true,
